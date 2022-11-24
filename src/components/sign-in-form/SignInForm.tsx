@@ -3,6 +3,7 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { PASSWORD_RULE } from '../../common/const/Regex'
+import { useActions } from '../../hooks/useActions'
 
 interface Props {}
 
@@ -18,7 +19,10 @@ const SignInForm = (props: Props) => {
     watch,
     formState: { errors },
   } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<Inputs> = data => console.log(data)
+
+  const { signIn } = useActions()
+
+  const onSubmit: SubmitHandler<Inputs> = async data => await signIn(data)
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -40,6 +44,9 @@ const SignInForm = (props: Props) => {
             pattern: PASSWORD_RULE,
           })}
         />
+        {errors.password?.type === 'required' && (
+          <p role='alert'>First name is required</p>
+        )}
         <button type='submit'>Send</button>
       </form>
     </div>
