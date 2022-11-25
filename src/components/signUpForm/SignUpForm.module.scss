@@ -1,0 +1,20 @@
+/** @format */
+
+.container {
+  padding-top: 5rem;
+  text-align: center;
+
+  h2 {
+    margin: 2rem;
+  }
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .button {
+    display: flex;
+    justify-content: space-between;
+  }
+}

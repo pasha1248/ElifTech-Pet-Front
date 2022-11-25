@@ -1,15 +1,16 @@
 /** @format */
 
 import React from 'react'
-import SignUpForm from '../../components/sign-up-form/SignUpFrom'
+import { Layout } from '../../components/layout/Layout'
+import SignUpForm from '../../components/signUpForm/SignUpFrom'
 
 interface Props {}
 
 const SignUp = (props: Props) => {
   return (
-    <div>
+    <Layout>
       <SignUpForm />
-    </div>
+    </Layout>
   )
 }
 

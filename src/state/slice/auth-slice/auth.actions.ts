@@ -14,10 +14,10 @@ import { AxiosError } from 'axios'
 
 export const signUp = createAsyncThunk<{ user: any }, SignUpFields>(
   'auth/signUp',
-  async ({ login, password, firstName, lastName }, thunkAPI): Promise<any> => {
+  async ({ email, password, firstName, lastName }, thunkAPI): Promise<any> => {
     try {
       const response = await AuthServiceFront.signUpService(
-        login,
+        email,
         password,
         firstName,
         lastName
@@ -36,10 +36,9 @@ export const signUp = createAsyncThunk<{ user: any }, SignUpFields>(
 
 export const signIn = createAsyncThunk<{ user: any }, SignInFields>(
   'auth/signIn',
-  async ({ login, password }, thunkAPI): Promise<any> => {
-    console.log('signIn action', login)
+  async ({ email, password }, thunkAPI): Promise<any> => {
     try {
-      const response = await AuthServiceFront.signInService(login, password)
+      const response = await AuthServiceFront.signInService(email, password)
 
       notifySuccess('Login is successful')
       return response

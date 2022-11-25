@@ -1,12 +1,12 @@
 /** @format */
 
 export interface SignInFields {
-  login: string
+  email: string
   password: string
 }
 
 export interface SignUpFields {
-  login: string
+  email: string
   password: string
   firstName: string
   lastName: string
