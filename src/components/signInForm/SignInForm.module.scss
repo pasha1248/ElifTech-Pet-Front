@@ -13,3 +13,22 @@
     gap: 20px;
   }
 }
+
+.containerForPasswordField {
+  position: relative;
+
+  .eye {
+    position: absolute;
+    right: 10px;
+    top: 9px;
+
+    .eyeIcon {
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        color: grey;
+      }
+    }
+  }
+}

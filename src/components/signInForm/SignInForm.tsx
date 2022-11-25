@@ -9,6 +9,8 @@ import { useActions } from '../../hooks/useActions'
 import Field from '../../ui/fields/Field'
 // @ts-ignore
 import styles from './SignInForm.module.scss'
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
+import { useShowPassword } from '../../hooks/useShowPassword'
 
 interface Props {}
 
@@ -26,6 +28,15 @@ const SignInForm = (props: Props) => {
   } = useForm<Inputs>({ mode: 'onChange' })
 
   const { signIn } = useActions()
+
+  const { makeNotVisible, makeVisible, setVisible, visible } = useShowPassword()
+
+  const {
+    makeNotVisible: makeNotVisible2,
+    makeVisible: makeVisible2,
+    setVisible: setVisible2,
+    visible: visible2,
+  } = useShowPassword()
 
   const onSubmit: SubmitHandler<Inputs> = async data => signIn(data)
   return (
@@ -45,20 +56,36 @@ const SignInForm = (props: Props) => {
             },
           })}
         />
-
-        <Field
-          type='password'
-          placeholder='Password'
-          error={errors.password}
-          {...register('password', {
-            required: 'Password is required',
-            minLength: 8,
-            pattern: {
-              value: PASSWORD_RULE,
-              message: 'Password password must be stronger',
-            },
-          })}
-        />
+        <div className={styles.containerForPasswordField}>
+          <Field
+            type={visible}
+            placeholder='Password'
+            error={errors.password}
+            {...register('password', {
+              required: 'Password is required',
+              minLength: 8,
+              pattern: {
+                value: PASSWORD_RULE,
+                message: 'Password password must be stronger',
+              },
+            })}
+          />
+          <div className={styles.eye}>
+            {visible === 'password' ? (
+              <AiFillEye
+                size={18}
+                onClick={makeVisible}
+                className={styles.eyeIcon}
+              />
+            ) : (
+              <AiFillEyeInvisible
+                size={18}
+                onClick={makeNotVisible}
+                className={styles.eyeIcon}
+              />
+            )}
+          </div>
+        </div>
 
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Link to={AppRoute.SIGN_UP}>Sign up </Link>

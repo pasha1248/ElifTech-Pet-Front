@@ -2,10 +2,12 @@
 
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import { EMAIL_RULE, PASSWORD_RULE } from '../../common/const/Regex'
 import { AppRoute } from '../../common/enums/app-routes.enum'
 import { useActions } from '../../hooks/useActions'
+import { useShowPassword } from '../../hooks/useShowPassword'
 import Field from '../../ui/fields/Field'
 //@ts-ignore
 import styles from './SignUpForm.module.scss'
@@ -30,8 +32,17 @@ const SignUpForm = (props: Props) => {
 
   const { signUp } = useActions()
 
+  const { makeNotVisible, makeVisible, setVisible, visible } = useShowPassword()
+
+  const {
+    makeNotVisible: makeNotVisible2,
+    makeVisible: makeVisible2,
+    setVisible: setVisible2,
+    visible: visible2,
+  } = useShowPassword()
+
   const onSubmit: SubmitHandler<Inputs> = async data =>
-    console.log({
+    signUp({
       email: data.email,
       firstName: data.firstName,
       lastName: data.lastName,
@@ -78,37 +89,71 @@ const SignUpForm = (props: Props) => {
             },
           })}
         />
-        <Field
-          type='password'
-          placeholder='Password'
-          error={errors.password}
-          {...register('password', {
-            required: 'Password is required',
-            minLength: 8,
-            pattern: {
-              value: PASSWORD_RULE,
-              message: 'Password password must be stronger',
-            },
-          })}
-        />
-        <Field
-          type='password'
-          placeholder='Confirm password'
-          error={errors.confirmPassword}
-          {...register('confirmPassword', {
-            required: 'Password is required',
-            minLength: 8,
-            pattern: {
-              value: PASSWORD_RULE,
-              message: 'Password password must be stronger',
-            },
-            validate: (val: string) => {
-              if (watch('password') != val) {
-                return 'Your passwords do no match'
-              }
-            },
-          })}
-        />
+        <div className={styles.containerForPasswordField}>
+          <Field
+            type={visible}
+            placeholder='Password'
+            error={errors.password}
+            {...register('password', {
+              required: 'Password is required',
+              minLength: 8,
+              pattern: {
+                value: PASSWORD_RULE,
+                message: 'Password password must be stronger',
+              },
+            })}
+          />
+          <div className={styles.eye}>
+            {visible === 'password' ? (
+              <AiFillEye
+                size={18}
+                onClick={makeVisible}
+                className={styles.eyeIcon}
+              />
+            ) : (
+              <AiFillEyeInvisible
+                size={18}
+                onClick={makeNotVisible}
+                className={styles.eyeIcon}
+              />
+            )}
+          </div>
+        </div>
+        <div className={styles.containerForPasswordField}>
+          <Field
+            type={visible2}
+            placeholder='Confirm password'
+            error={errors.confirmPassword}
+            {...register('confirmPassword', {
+              required: 'Password is required',
+              minLength: 8,
+              pattern: {
+                value: PASSWORD_RULE,
+                message: 'Password password must be stronger',
+              },
+              validate: (val: string) => {
+                if (watch('password') != val) {
+                  return 'Your passwords do no match'
+                }
+              },
+            })}
+          />
+          <div className={styles.eye}>
+            {visible2 === 'password' ? (
+              <AiFillEye
+                size={18}
+                onClick={makeVisible2}
+                className={styles.eyeIcon}
+              />
+            ) : (
+              <AiFillEyeInvisible
+                size={18}
+                onClick={makeNotVisible2}
+                className={styles.eyeIcon}
+              />
+            )}
+          </div>
+        </div>
 
         <div className={styles.button}>
           <Link to={AppRoute.SIGN_IN}>Sign in</Link>
