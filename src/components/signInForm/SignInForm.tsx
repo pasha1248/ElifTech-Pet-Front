@@ -11,6 +11,7 @@ import Field from '../../ui/fields/Field'
 import styles from './SignInForm.module.scss'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { useShowPassword } from '../../hooks/useShowPassword'
+import GoogleButton from './googleButton/GoogleButton'
 
 interface Props {}
 
@@ -86,10 +87,18 @@ const SignInForm = (props: Props) => {
             )}
           </div>
         </div>
-
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Link to={AppRoute.SIGN_UP}>Sign up </Link>
-          <button type='submit'>Send</button>
+        <div>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              marginBottom: '1rem',
+            }}
+          >
+            <Link to={AppRoute.SIGN_UP}>Sign up </Link>
+            <button type='submit'>Send</button>
+          </div>
+          <GoogleButton />
         </div>
       </form>
     </div>

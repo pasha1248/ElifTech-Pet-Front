@@ -28,4 +28,12 @@ export const AuthServiceFront = {
 
     return response.data
   },
+
+  async googleAuth(credentialResponse: string) {
+    const response = await api.post<IAuthData>('auth/google/auth', {
+      token: credentialResponse,
+    })
+
+    return response.data
+  },
 }

@@ -1,9 +1,15 @@
 /** @format */
 
 export interface IAuthData {
-  user: {
-    id: number
-    email: string
-  } | null
-  accessToken: string
+  user:
+    | {
+        id: string
+        email: string
+      }
+    | null
+    | undefined
+  tokens: {
+    access_token: string
+    refresh_token: string
+  }
 }

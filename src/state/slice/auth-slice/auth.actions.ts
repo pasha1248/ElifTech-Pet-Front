@@ -50,3 +50,19 @@ export const signIn = createAsyncThunk<{ user: any }, SignInFields>(
     }
   }
 )
+
+export const authWithGoogle = createAsyncThunk(
+  'users/google',
+  async (credentialResponse: string, { rejectWithValue }) => {
+    try {
+      const response = await AuthServiceFront.googleAuth(credentialResponse)
+      notifySuccess('Login is successful')
+      return response
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        notifyError(error.response?.data?.message)
+        return rejectWithValue(error.response?.data?.message)
+      }
+    }
+  }
+)
