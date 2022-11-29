@@ -1,6 +1,7 @@
 /** @format */
 
 import axios from 'axios'
+import cookieServices from '../services/cookie/cookie.services'
 
 const api = axios.create({
   baseURL: process.env.BACKEND_URL || 'http://localhost:3001/api',
@@ -8,6 +9,7 @@ const api = axios.create({
 })
 
 api.interceptors.request.use((config: any) => {
+  console.log(cookieServices.get('refresh_token'))
   config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
 
   return config
@@ -31,11 +33,11 @@ api.interceptors.response.use(
         const response = await axios.get(
           `${
             process.env.BACKEND_URL || 'http://localhost:3001/api'
-          }auth/refresh`,
+          }/auth/refresh`,
           { withCredentials: true }
         )
 
-        localStorage.setItem('token', response.data.tokens.access_token)
+        // localStorage.setItem('token', response.data.tokens.access_token)
 
         return api.request(originalRequest)
       } catch (e) {

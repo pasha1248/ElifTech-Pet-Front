@@ -1,6 +1,6 @@
 /** @format */
 
-import { authWithGoogle, signIn } from './auth.actions'
+import { authWithGoogle, checkAuth, logout, signIn } from './auth.actions'
 /** @format */
 
 import { createSlice } from '@reduxjs/toolkit'
@@ -26,7 +26,7 @@ export const AuthSlice = createSlice({
 
   extraReducers: builder => {
     builder
-      .addCase(signUp.pending, (state, action) => {
+      .addCase(signUp.pending, state => {
         state.isLoading = true
       })
       .addCase(signUp.fulfilled, (state, action) => {
@@ -45,7 +45,7 @@ export const AuthSlice = createSlice({
       })
       .addCase(signIn.fulfilled, (state, action) => {
         state.isLoading = false
-        state.user = action.payload.user
+        state.isAuth = true
       })
       .addCase(signIn.rejected, (state, action) => {
         state.isLoading = false
@@ -58,11 +58,7 @@ export const AuthSlice = createSlice({
       })
       .addCase(authWithGoogle.fulfilled, (state, action) => {
         state.isLoading = false
-        state.user = action.payload?.['user']
-        localStorage.setItem(
-          'token',
-          action.payload ? action.payload.tokens.access_token : ''
-        )
+
         state.isAuth = true
       })
       .addCase(authWithGoogle.rejected, (state, action) => {
@@ -70,15 +66,34 @@ export const AuthSlice = createSlice({
         state.isAuth = false
       })
     //
-    // builder.addCase(logout.fulfilled, state => {
-    //   state.isLoading = false
-    //   state.user = null
-    //   state.accessToken = ''
-    // })
+    builder
+      .addCase(logout.pending, state => {
+        state.isLoading = true
+      })
+      .addCase(logout.fulfilled, state => {
+        state.isLoading = false
+        state.isAuth = false
+        state.user = null
+      })
+      .addCase(logout.rejected, state => {
+        state.isLoading = false
+      })
+    //
+    builder
+      .addCase(checkAuth.pending, state => {
+        state.isLoading = true
+      })
+      .addCase(checkAuth.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isAuth = true
+      })
+      .addCase(checkAuth.rejected, state => {
+        state.isLoading = false
+        state.isAuth = false
+      })
   },
 })
 
-// Action creators are generated for each case reducer function
 export const {} = AuthSlice.actions
 
 export default AuthSlice.reducer

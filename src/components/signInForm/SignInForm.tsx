@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { EMAIL_RULE, PASSWORD_RULE } from '../../common/const/Regex'
 import { AppRoute } from '../../common/enums/app-routes.enum'
 import { useActions } from '../../hooks/useActions'
@@ -12,6 +12,8 @@ import styles from './SignInForm.module.scss'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { useShowPassword } from '../../hooks/useShowPassword'
 import GoogleButton from './googleButton/GoogleButton'
+import classNames from 'classnames'
+import { useAppDispatch } from '../../hooks/useReduxHooks'
 
 interface Props {}
 
@@ -21,6 +23,8 @@ type Inputs = {
 }
 
 const SignInForm = (props: Props) => {
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -39,7 +43,15 @@ const SignInForm = (props: Props) => {
     visible: visible2,
   } = useShowPassword()
 
-  const onSubmit: SubmitHandler<Inputs> = async data => signIn(data)
+  const onSubmit: SubmitHandler<Inputs> = async data => {
+    try {
+      signIn(data)
+      navigate(AppRoute.HOME)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   return (
     <div className={styles.container}>
       <h2>Sign in</h2>
@@ -87,7 +99,8 @@ const SignInForm = (props: Props) => {
             )}
           </div>
         </div>
-        <div>
+        <div></div>
+        <div className={styles.buttons}>
           <div
             style={{
               display: 'flex',
@@ -98,7 +111,9 @@ const SignInForm = (props: Props) => {
             <Link to={AppRoute.SIGN_UP}>Sign up </Link>
             <button type='submit'>Send</button>
           </div>
-          <GoogleButton />
+          <div className={styles.googleButton}>
+            <GoogleButton />
+          </div>
         </div>
       </form>
     </div>

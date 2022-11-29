@@ -36,4 +36,14 @@ export const AuthServiceFront = {
 
     return response.data
   },
+
+  async logout() {
+    return await api.get<void>('auth/logout')
+  },
+
+  async checkAuthAndRefresh() {
+    const response = await api.get<IAuthData>('auth/refresh')
+
+    return response.data
+  },
 }

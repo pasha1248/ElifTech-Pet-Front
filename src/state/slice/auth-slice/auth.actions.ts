@@ -11,6 +11,7 @@ import {
 import { AuthServiceFront } from '../../../services/auth/auth.services'
 import { SignUpFields } from './auth.interface'
 import { AxiosError } from 'axios'
+import cookieServices from '../../../services/cookie/cookie.services'
 
 export const signUp = createAsyncThunk<{ user: any }, SignUpFields>(
   'auth/signUp',
@@ -39,8 +40,11 @@ export const signIn = createAsyncThunk<{ user: any }, SignInFields>(
   async ({ email, password }, thunkAPI): Promise<any> => {
     try {
       const response = await AuthServiceFront.signInService(email, password)
-
       notifySuccess('Login is successful')
+
+      cookieServices.set('auth', 'true', {
+        maxAge: Number(process.env.REACT_APP_COOKIE_MAX_AGE),
+      })
       return response
     } catch (e) {
       if (e instanceof AxiosError) {
@@ -57,10 +61,44 @@ export const authWithGoogle = createAsyncThunk(
     try {
       const response = await AuthServiceFront.googleAuth(credentialResponse)
       notifySuccess('Login is successful')
+
+      window.localStorage.setItem('auth', 'true')
       return response
     } catch (error) {
       if (error instanceof AxiosError) {
         notifyError(error.response?.data?.message)
+        return rejectWithValue(error.response?.data?.message)
+      }
+    }
+  }
+)
+
+export const logout = createAsyncThunk(
+  'users/logout',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await AuthServiceFront.logout()
+      window.localStorage.removeItem('auth')
+      notifySuccess('Have a good day!')
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        notifyError(error.response?.data?.message)
+        return rejectWithValue(error.response?.data?.message)
+      }
+    }
+  }
+)
+
+export const checkAuth = createAsyncThunk(
+  'users/check',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await AuthServiceFront.checkAuthAndRefresh()
+      window.localStorage.setItem('auth', 'true')
+      return response
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        // notifyError(error.response?.data?.message)
         return rejectWithValue(error.response?.data?.message)
       }
     }
