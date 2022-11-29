@@ -11,3 +11,9 @@ export interface SignUpFields {
   firstName: string
   lastName: string
 }
+
+export interface IAuthSlice {
+  isAuth: boolean
+  isLoading: boolean
+  user: { id: string; email: string } | null | undefined
+}

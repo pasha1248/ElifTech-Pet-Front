@@ -14,13 +14,10 @@ import { useShowPassword } from '../../hooks/useShowPassword'
 import GoogleButton from './googleButton/GoogleButton'
 import classNames from 'classnames'
 import { useAppDispatch } from '../../hooks/useReduxHooks'
+import ForgotPassword from './forgotPassword/ForgotPassword'
+import { IInputsSignIn } from './auth.interface'
 
 interface Props {}
-
-type Inputs = {
-  email: string
-  password: string
-}
 
 const SignInForm = (props: Props) => {
   const navigate = useNavigate()
@@ -30,7 +27,7 @@ const SignInForm = (props: Props) => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<Inputs>({ mode: 'onChange' })
+  } = useForm<IInputsSignIn>({ mode: 'onChange' })
 
   const { signIn } = useActions()
 
@@ -43,7 +40,7 @@ const SignInForm = (props: Props) => {
     visible: visible2,
   } = useShowPassword()
 
-  const onSubmit: SubmitHandler<Inputs> = async data => {
+  const onSubmit: SubmitHandler<IInputsSignIn> = async data => {
     try {
       signIn(data)
       navigate(AppRoute.HOME)
@@ -99,7 +96,9 @@ const SignInForm = (props: Props) => {
             )}
           </div>
         </div>
-        <div></div>
+        <div>
+          <Link to={AppRoute.FORGOT_PASSWORD}>Forgot password</Link>
+        </div>
         <div className={styles.buttons}>
           <div
             style={{

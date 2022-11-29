@@ -77,7 +77,7 @@ export const logout = createAsyncThunk(
   'users/logout',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await AuthServiceFront.logout()
+      await AuthServiceFront.logout()
       window.localStorage.removeItem('auth')
       notifySuccess('Have a good day!')
     } catch (error) {

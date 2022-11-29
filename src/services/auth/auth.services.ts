@@ -1,7 +1,8 @@
 /** @format */
 
 import api from '../../api/axios'
-import { IAuthData } from './auth.helper'
+import { IForgotPassword } from '../../components/signInForm/auth.interface'
+import { IAuthData, ISendCode } from './auth.helper'
 
 export const AuthServiceFront = {
   async signInService(email: string, password: string) {
@@ -45,5 +46,20 @@ export const AuthServiceFront = {
     const response = await api.get<IAuthData>('auth/refresh')
 
     return response.data
+  },
+
+  async checkEmailAndSendCode(
+    email: IForgotPassword | string | null | undefined
+  ) {
+    const response = await api.post<ISendCode>('auth/forgot-password', email)
+    return response.data
+  },
+
+  async verifyCode(code: { code: string }, email: string | undefined) {
+    await api.post<void>('auth/verify-code', { code, email })
+  },
+
+  async refreshPassword(email: string | null | undefined, newPassword: string) {
+    await api.post<void>('auth/refresh-password', { email, newPassword })
   },
 }

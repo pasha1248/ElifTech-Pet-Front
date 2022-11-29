@@ -9,18 +9,11 @@ import { AppRoute } from '../../common/enums/app-routes.enum'
 import { useActions } from '../../hooks/useActions'
 import { useShowPassword } from '../../hooks/useShowPassword'
 import Field from '../../ui/fields/Field'
+import { IInputsSignUp } from '../signInForm/auth.interface'
 //@ts-ignore
 import styles from './SignUpForm.module.scss'
 
 interface Props {}
-
-type Inputs = {
-  email: string
-  firstName: string
-  lastName: string
-  password: string
-  confirmPassword: string
-}
 
 const SignUpForm = (props: Props) => {
   const {
@@ -28,7 +21,7 @@ const SignUpForm = (props: Props) => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<Inputs>({ mode: 'onChange' })
+  } = useForm<IInputsSignUp>({ mode: 'onChange' })
 
   const { signUp } = useActions()
 
@@ -41,7 +34,7 @@ const SignUpForm = (props: Props) => {
     visible: visible2,
   } = useShowPassword()
 
-  const onSubmit: SubmitHandler<Inputs> = async data =>
+  const onSubmit: SubmitHandler<IInputsSignUp> = async data =>
     signUp({
       email: data.email,
       firstName: data.firstName,

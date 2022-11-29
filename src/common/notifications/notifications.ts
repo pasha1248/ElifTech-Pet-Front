@@ -24,6 +24,12 @@ export const notifySuccess = (text: string) =>
     autoClose: 2000,
   })
 
+export const notifySuccessSendCode = (text: string) =>
+  toast.success(`${text}`, {
+    position: 'top-right',
+    autoClose: 60000,
+  })
+
 export interface IMessage {
   id: number
   conversationId: number

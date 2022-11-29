@@ -6,14 +6,9 @@ import { authWithGoogle, checkAuth, logout, signIn } from './auth.actions'
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { signUp } from './auth.actions'
+import { IAuthSlice } from './auth.interface'
 
-export interface CounterState {
-  isAuth: boolean
-  isLoading: boolean
-  user: { id: string; email: string } | null | undefined
-}
-
-const initialState: CounterState = {
+const initialState: IAuthSlice = {
   isAuth: false,
   isLoading: false,
   user: null,

@@ -3,6 +3,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { AppRoute } from '../common/enums/app-routes.enum'
+
 import Home from '../pages/home/Home'
 import Portal from '../pages/portal/Portal'
 

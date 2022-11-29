@@ -13,3 +13,7 @@ export interface IAuthData {
     refresh_token: string
   }
 }
+
+export interface ISendCode {
+  code: string
+}
