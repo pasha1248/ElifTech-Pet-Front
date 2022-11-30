@@ -14,20 +14,29 @@ export const notifyError = (text: any) =>
   toast.error(`${text}`, {
     position: 'top-right',
     hideProgressBar: true,
-    autoClose: 2000,
+    autoClose: 3000,
   })
 
 export const notifySuccess = (text: string) =>
   toast.success(`${text}`, {
     position: 'top-right',
     hideProgressBar: true,
-    autoClose: 2000,
+    autoClose: 3000,
   })
 
-export const notifySuccessSendCode = (text: string) =>
-  toast.success(`${text}`, {
-    position: 'top-right',
-    autoClose: 60000,
+export const notifySuccessSendCode = (id: any, text: string) =>
+  toast.update(id, {
+    render: text,
+    type: 'success',
+    isLoading: false,
+    autoClose: 10000,
+  })
+
+export const notifyLoading = (isLoading: any) =>
+  toast.promise(isLoading, {
+    pending: 'Promise is pending',
+    success: 'Promise resolved 👌',
+    error: 'Promise rejected 🤯',
   })
 
 export interface IMessage {

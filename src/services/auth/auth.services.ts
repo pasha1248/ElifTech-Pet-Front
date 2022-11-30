@@ -56,10 +56,13 @@ export const AuthServiceFront = {
   },
 
   async verifyCode(code: { code: string }, email: string | undefined) {
-    await api.post<void>('auth/verify-code', { code, email })
+    await api.post<void>('auth/verify-code', { code: code.code, email })
   },
 
   async refreshPassword(email: string | null | undefined, newPassword: string) {
-    await api.post<void>('auth/refresh-password', { email, newPassword })
+    await api.patch<void>('auth/refresh-password', {
+      email,
+      password: newPassword,
+    })
   },
 }

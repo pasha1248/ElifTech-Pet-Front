@@ -23,7 +23,15 @@ function App() {
 
   return (
     <div className='App'>
-      <ToastContainer />
+      <ToastContainer
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        theme='light'
+      />
 
       {isAuth ? <AuthTrueRoutes /> : <AuthFalseRoutes />}
     </div>

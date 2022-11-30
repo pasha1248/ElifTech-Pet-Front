@@ -71,7 +71,6 @@ const forgotPasswordSlice = createSlice({
       })
       .addCase(refreshPassword.rejected, (state, action) => {
         state.isLoading = false
-        state.accessChangePassword = false
       })
     //
   },
