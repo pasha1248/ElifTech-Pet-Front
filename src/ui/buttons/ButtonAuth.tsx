@@ -11,6 +11,7 @@ type Props = {}
 const ButtonAuth: FC<PropsWithChildren<IButton>> = ({
   children,
   className,
+  icon,
   ...rest
 }) => {
   return (

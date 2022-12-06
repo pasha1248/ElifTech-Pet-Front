@@ -1,10 +1,11 @@
 /** @format */
 
 import axios from 'axios'
+
 import cookieServices from '../services/cookie/cookie.services'
 
 const api = axios.create({
-  baseURL: process.env.BACKEND_URL || 'http://localhost:3001/api',
+  baseURL: process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001/api',
   withCredentials: true,
 })
 

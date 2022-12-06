@@ -1,4 +1,7 @@
 /** @format */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 body {
   margin: 0;
@@ -13,4 +16,8 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+body {
+  background-color: #1e1e2c;
 }

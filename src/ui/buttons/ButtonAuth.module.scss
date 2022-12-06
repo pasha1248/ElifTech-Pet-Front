@@ -1,3 +1,11 @@
 /** @format */
+
 .button {
+  @apply py-3 rounded-3xl px-7 text-white bg-opacity-80 transition-colors duration-300 hover:bg-opacity-100 text-base;
+
+  background-color: #117dff;
+
+  &:hover {
+    background-color: #519fff;
+  }
 }

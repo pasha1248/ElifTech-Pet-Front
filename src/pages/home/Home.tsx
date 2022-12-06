@@ -10,7 +10,18 @@ interface Props {}
 
 const Home = (props: Props) => {
   const { isLoading } = useAppSelector(state => state.authSlice)
-  return <Layout>{isLoading ? <LoginLoader /> : <Outlet />}</Layout>
+  return (
+    <>
+      {' '}
+      {isLoading ? (
+        <LoginLoader />
+      ) : (
+        <Layout>
+          <Outlet />
+        </Layout>
+      )}
+    </>
+  )
 }
 
 export default Home

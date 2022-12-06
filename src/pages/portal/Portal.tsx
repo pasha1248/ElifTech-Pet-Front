@@ -1,24 +1,13 @@
 /** @format */
 
 import React from 'react'
+import { Layout } from '../../components/layout/Layout'
 import { useActions } from '../../hooks/useActions'
 
 type Props = {}
 
 const Portal = (props: Props) => {
-  const { logout } = useActions()
-
-  // const logoutClick = () => {
-  //    logout()
-  // }
-
-  return (
-    <div>
-      <button onClick={logout} style={{ width: '100px' }}>
-        Logout
-      </button>
-    </div>
-  )
+  return <h2>Blog</h2>
 }
 
 export default Portal
