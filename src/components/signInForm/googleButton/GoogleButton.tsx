@@ -27,7 +27,7 @@ const GoogleButton = (props: any) => {
           onError={() => {
             notifyError('Authorization failed')
           }}
-          theme='outline'
+          theme='filled_black'
         />
       </GoogleOAuthProvider>
     </div>

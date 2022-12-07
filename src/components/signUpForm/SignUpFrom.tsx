@@ -8,10 +8,14 @@ import { EMAIL_RULE, PASSWORD_RULE } from '../../common/const/Regex'
 import { AppRoute } from '../../common/enums/app-routes.enum'
 import { useActions } from '../../hooks/useActions'
 import { useShowPassword } from '../../hooks/useShowPassword'
+import ButtonAuth from '../../ui/buttons/ButtonAuth'
 import Field from '../../ui/fields/Field'
 import { IInputsSignUp } from '../signInForm/auth.interface'
 //@ts-ignore
 import styles from './SignUpForm.module.scss'
+import { BiUser } from 'react-icons/bi'
+import { AiOutlineMail } from 'react-icons/ai'
+import { RiLockPasswordLine } from 'react-icons/ri'
 
 interface Props {}
 
@@ -45,44 +49,68 @@ const SignUpForm = (props: Props) => {
     <div className={styles.container}>
       <h2>Sign up</h2>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        <Field
-          type='text'
-          placeholder='First name'
-          error={errors.firstName}
-          {...register('firstName', {
-            required: true,
-            minLength: {
-              value: 3,
-              message: 'Min length is 3 symbols',
-            },
-          })}
-        />
+        <div>
+          <h3 className='text-start m-2 text-xl text-slate-50 font-semibold	'>
+            First name
+          </h3>
 
-        <Field
-          type='text'
-          placeholder='Last name'
-          error={errors.lastName}
-          {...register('lastName', {
-            required: true,
-            minLength: {
-              value: 3,
-              message: 'Min length is 3 symbols',
-            },
-          })}
-        />
-        <Field
-          type='text'
-          placeholder='Email'
-          error={errors.email}
-          {...register('email', {
-            required: 'Email is required',
-            pattern: {
-              value: EMAIL_RULE,
-              message: 'Email must be correct',
-            },
-          })}
-        />
+          <Field
+            type='text'
+            placeholder='First name'
+            error={errors.firstName}
+            {...register('firstName', {
+              required: true,
+              minLength: {
+                value: 3,
+                message: 'Min length is 3 symbols',
+              },
+            })}
+          >
+            <BiUser />
+          </Field>
+        </div>
+        <div>
+          <h3 className='text-start m-2 text-xl text-slate-50 font-semibold	'>
+            Last name
+          </h3>
+          <Field
+            type='text'
+            placeholder='Last name'
+            error={errors.lastName}
+            {...register('lastName', {
+              required: true,
+              minLength: {
+                value: 3,
+                message: 'Min length is 3 symbols',
+              },
+            })}
+          >
+            <BiUser />
+          </Field>
+        </div>
+        <div>
+          <h3 className='text-start m-2 text-xl text-slate-50 font-semibold	'>
+            Email
+          </h3>
+          <Field
+            type='text'
+            placeholder='Email'
+            error={errors.email}
+            {...register('email', {
+              required: 'Email is required',
+              pattern: {
+                value: EMAIL_RULE,
+                message: 'Email must be correct',
+              },
+            })}
+          >
+            <AiOutlineMail />
+          </Field>
+        </div>
         <div className={styles.containerForPasswordField}>
+          <h3 className='text-start m-2 text-xl text-slate-50 font-semibold	'>
+            Password
+          </h3>
           <Field
             type={visible}
             placeholder='Password'
@@ -95,17 +123,14 @@ const SignUpForm = (props: Props) => {
                 message: 'Password password must be stronger',
               },
             })}
-          />
+          >
+            <RiLockPasswordLine />
+          </Field>
           <div className={styles.eye}>
             {visible === 'password' ? (
-              <AiFillEye
-                size={18}
-                onClick={makeVisible}
-                className={styles.eyeIcon}
-              />
+              <AiFillEye onClick={makeVisible} className={styles.eyeIcon} />
             ) : (
               <AiFillEyeInvisible
-                size={18}
                 onClick={makeNotVisible}
                 className={styles.eyeIcon}
               />
@@ -113,6 +138,9 @@ const SignUpForm = (props: Props) => {
           </div>
         </div>
         <div className={styles.containerForPasswordField}>
+          <h3 className='text-start m-2 text-xl text-slate-50 font-semibold	'>
+            Confirm password
+          </h3>
           <Field
             type={visible2}
             placeholder='Confirm password'
@@ -130,17 +158,14 @@ const SignUpForm = (props: Props) => {
                 }
               },
             })}
-          />
+          >
+            <RiLockPasswordLine />
+          </Field>
           <div className={styles.eye}>
             {visible2 === 'password' ? (
-              <AiFillEye
-                size={18}
-                onClick={makeVisible2}
-                className={styles.eyeIcon}
-              />
+              <AiFillEye onClick={makeVisible2} className={styles.eyeIcon} />
             ) : (
               <AiFillEyeInvisible
-                size={18}
                 onClick={makeNotVisible2}
                 className={styles.eyeIcon}
               />
@@ -149,8 +174,11 @@ const SignUpForm = (props: Props) => {
         </div>
 
         <div className={styles.button}>
-          <Link to={AppRoute.SIGN_IN}>Sign in</Link>
-          <button type='submit'>Send</button>
+          <span className=''>
+            Already have an account?
+            <Link to={AppRoute.SIGN_IN}>Sign in</Link>
+          </span>
+          <ButtonAuth type='submit'>Registration</ButtonAuth>
         </div>
       </form>
     </div>

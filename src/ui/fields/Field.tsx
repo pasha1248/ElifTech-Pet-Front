@@ -7,12 +7,13 @@ import className from 'classnames'
 import styles from './Field.module.scss'
 
 const Field = forwardRef<HTMLInputElement, IField>(
-  ({ error, type = 'text', style, ...rest }, ref) => {
+  ({ error, children, type = 'text', style, ...rest }, ref) => {
     return (
       <div
         className={className(styles.input, { [styles.errorField]: error })}
         style={style}
       >
+        <span className={styles.icon}>{children}</span>
         <input type={type} ref={ref} {...rest} />
         {error && <div className={styles.error}>{error.message}</div>}
       </div>

@@ -3,26 +3,32 @@
 .input {
   position: relative;
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 9px;
+
+  .icon {
+    position: absolute;
+    left: 20px;
+    bottom: 16px;
+    font-size: 24px;
+    color: whitesmoke;
+  }
 
   > input {
     border-radius: 10px;
-    padding: 0.5rem 0.5rem;
+    padding: 0.8rem 0.5rem;
+    padding-left: 4rem;
     width: 100%;
     display: block;
     outline: 0;
-    color: black;
-    border: 1px solid grey;
+    color: whitesmoke;
+    border: 2px solid #117dff;
+    background: transparent;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.03);
 
     transition: all 0.4s ease;
-    /* box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03); */
 
     &::placeholder {
-      color: #5c5a69;
-    }
-
-    &:focus {
-      box-shadow: 0 3px 6px rgba(8, 255, 45, 0.01);
+      color: whitesmoke;
     }
   }
 }
@@ -32,17 +38,17 @@
     width: 100%;
     display: block;
     outline: 0;
-    color: black;
-    box-shadow: 0 1px 4px rgba(255, 0, 0, 1);
-    border: 1px solid red;
+    color: white;
+    box-shadow: 0 1px 4px rgb(211, 60, 60);
+    border: 2px solid rgb(201, 110, 110);
   }
 }
 
 .error {
   position: absolute;
-  bottom: -18px;
+  bottom: -20px;
   left: 0;
   width: 100%;
-  color: red;
+  color: rgb(180, 73, 73);
   font-size: 0.8rem;
 }

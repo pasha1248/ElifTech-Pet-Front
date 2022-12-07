@@ -11,13 +11,21 @@ type Props = {}
 const ButtonAuth: FC<PropsWithChildren<IButton>> = ({
   children,
   className,
+  type,
   icon,
   ...rest
 }) => {
   return (
-    <button className={classaname(styles.button, className)} {...rest}>
-      {children}
-    </button>
+    <>
+      <button
+        type={type}
+        className={classaname(styles.button, className)}
+        {...rest}
+      >
+        {children}
+      </button>
+      {icon}
+    </>
   )
 }
 

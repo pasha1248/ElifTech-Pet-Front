@@ -10,7 +10,7 @@ import { notifyError } from '../../common/notifications/notifications'
 export const rtkQueryErrorLogger: Middleware =
   (api: MiddlewareAPI) => next => action => {
     if (isRejectedWithValue(action)) {
-      notifyError(action.error)
+      notifyError(action?.error?.message)
     }
 
     return next(action)

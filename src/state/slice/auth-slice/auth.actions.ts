@@ -12,6 +12,7 @@ import { AuthServiceFront } from '../../../services/auth/auth.services'
 import { SignUpFields } from './auth.interface'
 import { AxiosError } from 'axios'
 import cookieServices from '../../../services/cookie/cookie.services'
+import { AppRoute } from '../../../common/enums/app-routes.enum'
 
 export const signUp = createAsyncThunk<{ user: any }, SignUpFields>(
   'auth/signUp',
@@ -35,12 +36,16 @@ export const signUp = createAsyncThunk<{ user: any }, SignUpFields>(
   }
 )
 
-export const signIn = createAsyncThunk<{ user: any }, SignInFields>(
+export const signIn = createAsyncThunk(
   'auth/signIn',
-  async ({ email, password }, thunkAPI): Promise<any> => {
+  async ([data, navidate]: any, { rejectWithValue }): Promise<any> => {
     try {
-      const response = await AuthServiceFront.signInService(email, password)
+      const response = await AuthServiceFront.signInService(
+        data.email,
+        data.password
+      )
       notifySuccess('Login is successful')
+      navidate(AppRoute.HOME)
 
       cookieServices.set('auth', 'true', {
         maxAge: Number(process.env.REACT_APP_COOKIE_MAX_AGE),
@@ -49,7 +54,7 @@ export const signIn = createAsyncThunk<{ user: any }, SignInFields>(
     } catch (e) {
       if (e instanceof AxiosError) {
         notifyError(e.response?.data?.message)
-        return thunkAPI.rejectWithValue(e.response?.data?.message)
+        return rejectWithValue(e.response?.data?.message)
       }
     }
   }

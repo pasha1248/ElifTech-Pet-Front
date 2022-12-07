@@ -10,11 +10,13 @@
     font-weight: 800;
     color: white;
     margin: 2rem;
+    margin-bottom: 2rem;
   }
   .form {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    position: relative;
   }
 }
 
@@ -22,13 +24,14 @@
   position: relative;
 
   .eye {
-    position: absolute;
-    right: 10px;
-    top: 9px;
-
     .eyeIcon {
       cursor: pointer;
       transition: all 0.2s ease;
+      position: absolute;
+      right: 10px;
+      bottom: 20px;
+      font-size: 30px;
+      color: whitesmoke;
 
       &:hover {
         color: grey;
@@ -38,6 +41,58 @@
 }
 
 .forgotButtons {
-  display: flex;
-  justify-content: space-between;
+  position: absolute;
+  bottom: 10.3rem;
+  right: 10px;
+  color: whitesmoke;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: #117dff;
+  }
+}
+
+.buttons {
+  margin-top: 1rem;
+
+  span {
+    color: whitesmoke;
+
+    a {
+      color: #117dff;
+      cursor: pointer;
+
+      &:hover {
+        color: #81baff;
+      }
+    }
+  }
+}
+
+.line {
+  color: whitesmoke;
+  margin-bottom: 20px;
+  display: block;
+
+  // &::before {
+  //   position: absolute;
+  //   content: ' ';
+  //   left: 8rem;
+  //   bottom: -1.7rem;
+  //   width: 1px;
+  //   height: 5rem;
+  //   transform: rotate(90deg);
+  //   background: #117dff;
+  // }
+
+  // &::after {
+  //   position: absolute;
+  //   content: ' ';
+  //   right: 8rem;
+  //   bottom: -1.7rem;
+  //   width: 1px;
+  //   height: 5rem;
+  //   transform: rotate(90deg);
+  //   background: #117dff;
+  // }
 }
