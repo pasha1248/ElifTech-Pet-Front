@@ -19,7 +19,7 @@ const UserAvatar: FC<{ user: IUser; isWhite?: boolean }> = ({
           <img
             width={45}
             height={45}
-            alt={user.name}
+            alt={user.firstName}
             src={user.avatarPath || ''}
           />
           {user.isVerified && (

@@ -3,8 +3,10 @@
 import { IBase } from '../base.interface'
 
 export interface IUser extends IBase {
+  background: string
   email: string
-  name: string
+  firstName: string
+  lastName: string
   isVerified?: boolean
   subscribersCount?: number
   description: string

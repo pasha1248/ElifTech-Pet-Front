@@ -1,0 +1,26 @@
+/** @format */
+
+.containerForAvatars {
+  padding: 10px;
+  margin-bottom: 2rem;
+
+  .background {
+    border-radius: 15px;
+    width: 100%;
+    height: 150px;
+    position: relative;
+  }
+
+  .avatar {
+    max-height: 130px;
+    position: absolute;
+    left: 30px;
+    bottom: -50px;
+    border: 8px solid #254163;
+    border-radius: 50%;
+  }
+
+  h4 {
+    margin-left: 7rem;
+  }
+}

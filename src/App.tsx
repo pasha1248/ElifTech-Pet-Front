@@ -9,6 +9,7 @@ import AuthTrueRoutes from './routers/auth-true'
 import 'react-toastify/dist/ReactToastify.css'
 import cookieServices from './services/cookie/cookie.services'
 import { useActions } from './hooks/useActions'
+import { api } from './state/api-rtk/api-rtk'
 
 function App() {
   const { isAuth } = useAppSelector(state => state.authSlice)

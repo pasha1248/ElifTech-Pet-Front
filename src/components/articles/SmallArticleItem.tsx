@@ -32,7 +32,9 @@ const SmallVideoItem: FC<IVideoItem> = ({ isSmall, removeHandler, item }) => {
       </div>
 
       <div className={styles.information}>
-        {!isSmall && <div className={styles.author}>{item.user?.name}</div>}
+        {!isSmall && (
+          <div className={styles.author}>{item.user?.firstName}</div>
+        )}
         <Link to={`/article/${item.id}`}>
           <p className={styles.name}>{item.name}</p>
         </Link>

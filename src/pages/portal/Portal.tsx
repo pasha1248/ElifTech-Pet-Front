@@ -2,12 +2,13 @@
 
 import React from 'react'
 import { Layout } from '../../components/layout/Layout'
+import RoadLoader from '../../components/loaders/roadLoader/RoadLoader'
 import { useActions } from '../../hooks/useActions'
 
 type Props = {}
 
 const Portal = (props: Props) => {
-  return <h2>Blog</h2>
+  return <RoadLoader />
 }
 
 export default Portal

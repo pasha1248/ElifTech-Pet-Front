@@ -41,6 +41,7 @@ export const AuthSlice = createSlice({
       .addCase(signIn.fulfilled, (state, action) => {
         state.isLoading = false
         state.isAuth = true
+        state.user = action.payload.user
       })
       .addCase(signIn.rejected, (state, action) => {
         state.isLoading = false
@@ -53,6 +54,7 @@ export const AuthSlice = createSlice({
       })
       .addCase(authWithGoogle.fulfilled, (state, action) => {
         state.isLoading = false
+        state.user = action.payload?.user
 
         state.isAuth = true
       })
@@ -80,6 +82,7 @@ export const AuthSlice = createSlice({
       })
       .addCase(checkAuth.fulfilled, (state, action) => {
         state.isLoading = false
+        state.user = action.payload?.user
         state.isAuth = true
       })
       .addCase(checkAuth.rejected, state => {

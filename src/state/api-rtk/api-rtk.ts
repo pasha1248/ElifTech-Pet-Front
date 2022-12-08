@@ -10,7 +10,9 @@ export const api = createApi({
   tagTypes: ['Article', 'Profile'],
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_BACKEND_URL,
+    credentials: 'include',
   }),
+
   endpoints: builder => ({
     getProfile: builder.query<IUser, any>({
       query: () => `${'user'}/profile`,
