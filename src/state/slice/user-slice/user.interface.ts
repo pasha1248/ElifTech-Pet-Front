@@ -3,16 +3,18 @@
 import { IBase } from '../base.interface'
 
 export interface IUser extends IBase {
-  background: string
+  articles: IArticle[] | []
+  avatarPath: string
+  cars: [] | any
+  description: string
   email: string
   firstName: string
+  id: string
+  isVerified: string
   lastName: string
-  isVerified?: boolean
-  subscribersCount?: number
-  description: string
-  avatarPath: string
-  articles?: IArticle[]
-  subscriptions: ISubscription[]
+  subscribersCount: number
+  subscriptions: any
+  background: string
 }
 
 export interface IArticle extends IBase {

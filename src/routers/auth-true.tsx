@@ -17,6 +17,7 @@ const AuthTrueRoutes = () => {
         <Route path={AppRoute.PORTAL} element={<Portal />} />
         <Route path={AppRoute.MY_PROFILE} element={<MyProfilePage />} />
       </Route>
+      <Route path='*' element={<Home />} />
     </Routes>
   )
 }

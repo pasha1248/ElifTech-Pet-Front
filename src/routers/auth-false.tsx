@@ -20,6 +20,7 @@ const AuthFalseRoutes = () => {
         <Route path={AppRoute.FORGOT_PASSWORD} element={<ForgotPassword />} />
         <Route path={AppRoute.VERIFY_CODE} element={<CheckCode />} />
       </Route>
+      <Route path='*' element={<Home />} />
     </Routes>
   )
 }

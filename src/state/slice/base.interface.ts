@@ -1,7 +1,7 @@
 /** @format */
 
 export interface IBase {
-  id: number
+  id: string
   createdAt: string
   updateAt: string
 }

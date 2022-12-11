@@ -6,6 +6,7 @@ import { api } from '../../../../state/api-rtk/api-rtk'
 import ProfileAvatar from './ProfileAvatar'
 // @ts-ignore:next-line
 import styles from './ProfileAboutMe.module.scss'
+import PersonalInfo from './PersonalInfo'
 
 interface Props {}
 
@@ -25,8 +26,11 @@ const ProfileAboutMe = (props: Props) => {
       <div>
         <ProfileAvatar user={data} />
         <div className={styles.name}>
-          <h4>{`${data?.firstName} ${data?.lastName}`}</h4>
+          <h3
+            style={{ fontSize: '25px' }}
+          >{`${data?.firstName} ${data?.lastName}`}</h3>
         </div>
+        <PersonalInfo user={data} />
       </div>
     </div>
   )

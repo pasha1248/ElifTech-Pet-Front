@@ -13,12 +13,14 @@ const ButtonAuth: FC<PropsWithChildren<IButton>> = ({
   className,
   type,
   icon,
+  onClick,
   ...rest
 }) => {
   return (
     <>
       <button
         type={type}
+        onClick={onClick}
         className={classaname(styles.button, className)}
         {...rest}
       >

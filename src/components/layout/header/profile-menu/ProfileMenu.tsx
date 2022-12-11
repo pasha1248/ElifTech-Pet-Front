@@ -20,9 +20,7 @@ const ProfileMenu = (props: Props) => {
   const { user } = useAppSelector(state => state.authSlice)
   const dispatch = useAppDispatch()
 
-  const { data, isLoading } = api.useGetProfileQuery(null, {
-    skip: !user,
-  })
+  const { data, isLoading } = api.useGetProfileQuery(null)
 
   const saveUserData = () => {
     dispatch(saveUserInStore(data))

@@ -10,9 +10,13 @@ interface Props {}
 
 const ProfileSidebar = (props: Props) => {
   return (
-    <div className={styles.container}>
-      <ProfileAboutMe />
-      <ProfileAboutMyCars />
+    <div>
+      <div className={styles.container}>
+        <ProfileAboutMe />
+      </div>
+      <div className={styles.container}>
+        <ProfileAboutMyCars />
+      </div>
     </div>
   )
 }
