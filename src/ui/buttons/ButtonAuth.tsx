@@ -26,6 +26,7 @@ const ButtonAuth: FC<PropsWithChildren<IButton>> = ({
       >
         {children}
       </button>
+      
       {icon}
     </>
   )

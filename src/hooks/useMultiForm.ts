@@ -1,17 +1,17 @@
 /** @format */
 
-import React from 'react'
+import React, { ReactElement } from 'react'
 
-export interface IMultiForm {
-  count: number
-}
+// export interface IMultiForm {
+//   count: number
+// }
 
-export const useMultiForm = ({ count }: IMultiForm) => {
-  const [pageCount, setPageCount] = React.useState(count)
-  const [page, setPage] = React.useState(0)
+export const useMultiForm = (count: number) => {
+  const [pageCount, setPageCount] = React.useState<number>(count)
+  const [page, setPage] = React.useState(1)
 
   const decrement = () => {
-    if (page > 0) {
+    if (page > 1) {
       setPage(page - 1)
     }
   }

@@ -8,6 +8,7 @@ interface TypographyProps {
   type: keyof typeof TypographyStyle
   className?: string
   tagName?: string
+  style?: any
   children: React.ReactNode
   onClick?: () => void
 }
@@ -17,6 +18,7 @@ export const Typography: React.FC<TypographyProps> = ({
   className,
   tagName,
   children,
+  style,
   onClick,
 }) => {
   const Tag = (tagName ||
@@ -24,7 +26,11 @@ export const Typography: React.FC<TypographyProps> = ({
   const predefinedClassName = TypographyStyle[type].className
 
   return (
-    <Tag className={clsx(predefinedClassName, className)} onClick={onClick}>
+    <Tag
+      className={clsx(predefinedClassName, className)}
+      onClick={onClick}
+      style={style}
+    >
       {children}
     </Tag>
   )

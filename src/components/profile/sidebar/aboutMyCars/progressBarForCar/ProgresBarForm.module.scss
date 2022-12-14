@@ -1,0 +1,89 @@
+/** @format */
+
+.container {
+  transition: all 0.4s ease;
+
+  ul {
+    height: 100px;
+    display: flex;
+
+    align-items: center;
+    //  flex-direction: column;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0px;
+    margin: 0px 0px 0px 0px;
+    position: relative;
+    transition: all 0.3s ease-in;
+  }
+  ul:before {
+    content: '';
+    height: 100%;
+    width: 100%;
+    height: 4px;
+    display: flex;
+    background: #e1e1e1;
+    position: absolute;
+    z-index: -2;
+    transition: all 0.4s ease;
+
+    //  transform: rotate(-90deg);
+  }
+  ul::after {
+    content: '';
+    height: 6px;
+    display: block;
+    background: #117dff;
+    position: absolute;
+    z-index: -1;
+    transition: all 0.4s ease;
+  }
+  ul.step1::after {
+    width: 0%;
+  }
+  ul.step2::after {
+    width: 50%;
+  }
+  ul.step3::after {
+    width: 100%;
+  }
+  /* ul.step-3::before{
+  rotate: 90deg;
+    width: 500%;
+ } */
+  ul li span {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e0e0e0;
+    color: #999;
+    border-radius: 50px;
+    border: 2px solid white;
+    box-shadow: 0px 0px 5px #ccc;
+    font-weight: bold;
+    transition: all 0.9s ease;
+  }
+  ul li.active span {
+    background: #117dff;
+    border: 2px solid #117dff;
+
+    box-shadow: 0px 0px 5px #117dff;
+    color: white;
+  }
+  ul li.active span {
+    background: #117dff;
+    border: 2px solid #117dff;
+
+    box-shadow: 0px 0px 5px #117dff;
+    color: white;
+  }
+  ul li.active span {
+    background: #117dff;
+    border: 2px solid #117dff;
+
+    box-shadow: 0px 0px 5px #117dff;
+    color: white;
+  }
+}

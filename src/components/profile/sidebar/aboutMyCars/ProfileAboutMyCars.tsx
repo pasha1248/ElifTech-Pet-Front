@@ -1,5 +1,5 @@
 /** @format */
-
+// @ts-nocheck
 import React from 'react'
 import { useAppSelector } from '../../../../hooks/useReduxHooks'
 import { api } from '../../../../state/api-rtk/api-rtk'
@@ -13,6 +13,9 @@ import { AiOutlinePlus } from 'react-icons/ai'
 import styles from './ProfileAboutMyCars.module.scss'
 import BasicModalScreen from '../../../../ui/modal/BasicModalScreen'
 import { useOutside } from '../../../../hooks/useOutside'
+import AddNewCarForm from './AddNewCarForm'
+import axios from 'axios'
+import { carSelectServise } from '../../../../services/car/carSelect.service'
 
 interface Props {}
 
@@ -26,6 +29,12 @@ const ProfileAboutMyCars = (props: Props) => {
   const { data, isLoading } = api.useGetProfileQuery(null, {
     skip: !user,
   })
+  var model = 'camry'
+
+  React.useEffect(() => {
+    carSelectServise.getAllCarsBrand()
+  })
+
   return (
     <div>
       <div>
@@ -41,7 +50,7 @@ const ProfileAboutMyCars = (props: Props) => {
               </ButtonAuth>
 
               <BasicModalScreen active={show} setActive={() => setShow(false)}>
-                <div> click me</div>
+                <AddNewCarForm />
               </BasicModalScreen>
             </>
           ) : (
