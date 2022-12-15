@@ -1,19 +1,10 @@
 /** @format */
 
-.input {
+.select {
   position: relative;
   display: block;
   margin-bottom: 9px;
-
-  .icon {
-    position: absolute;
-    left: 20px;
-    bottom: 16px;
-    font-size: 24px;
-    color: whitesmoke;
-  }
-
-  input {
+  .select2 {
     border-radius: 10px;
     padding: 0.8rem 0.5rem;
     padding-left: 4rem;
@@ -34,7 +25,10 @@
   }
 }
 .errorField {
-  > input {
+  position: relative;
+  display: block;
+  margin-bottom: 9px;
+  .select2 {
     border-radius: 10px;
     width: 100%;
     display: block;

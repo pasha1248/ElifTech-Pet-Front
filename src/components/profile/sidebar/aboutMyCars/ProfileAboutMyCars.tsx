@@ -31,10 +31,6 @@ const ProfileAboutMyCars = (props: Props) => {
   })
   var model = 'camry'
 
-  React.useEffect(() => {
-    carSelectServise.getAllCarsBrand()
-  })
-
   return (
     <div>
       <div>

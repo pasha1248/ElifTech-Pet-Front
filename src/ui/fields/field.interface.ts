@@ -5,11 +5,9 @@ import { FieldError } from 'react-hook-form'
 import React from 'react'
 
 export interface IFieldProps {
-  error?: FieldError
+  error?: FieldError | any
   children?: React.ReactNode
 }
-
-
 
 type TypeInputPropsField = InputHTMLAttributes<HTMLInputElement> & IFieldProps
 

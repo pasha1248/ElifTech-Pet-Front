@@ -1,12 +1,15 @@
 /** @format */
-
 import React from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import ButtonAuth from '../../../../ui/buttons/ButtonAuth'
 import Field from '../../../../ui/fields/Field'
 import Switch from '../../../../ui/switch/Switch'
 import { Typography } from '../../../../ui/Typography'
 import { MdNavigateNext } from 'react-icons/md'
+import { FieldAutoComplate } from '../../../../ui/select/FieldAutoComplate'
+import { Listbox } from '../../../../ui/select/SelectHeadles'
+import { useActions } from '../../../../hooks/useActions'
+import { useAppSelector } from '../../../../hooks/useReduxHooks'
 
 export interface IFormAboutCar {
   model: string
@@ -18,6 +21,7 @@ export interface IFormAboutCar {
   release: string
   purchaseTime: string
   color: string
+  people: any
 }
 
 const FormAboutCar = ({
@@ -29,9 +33,30 @@ const FormAboutCar = ({
   const {
     register,
     handleSubmit,
+    control,
     watch,
     formState: { errors },
-  } = useForm<IFormAboutCar>({ mode: 'onChange', defaultValues: defaultValue })
+  } = useForm<any>({
+    mode: 'onChange',
+    defaultValues: defaultValue,
+  })
+
+  const { allCarTypes, allBrand, allYers, isLoading } = useAppSelector(
+    state => state.carSelectSlice
+  )
+
+  const { getAllBrand, getTypesCar, getYears } = useActions()
+
+  React.useEffect(() => {
+    getTypesCar()
+    setTimeout(() => {
+      getAllBrand()
+      setTimeout(() => {
+        getYears()
+      }, 2000)
+    }, 2000)
+    // getAllBrand()
+  }, [])
 
   const onSubmit: SubmitHandler<IFormAboutCar> = async data => {
     setFields(data)
@@ -41,6 +66,10 @@ const FormAboutCar = ({
     } catch (e) {
       console.log(e)
     }
+  }
+
+  const fetchCarModel = (year: string) => {
+    console.log(watch('type'), year)
   }
 
   return (
@@ -59,8 +88,7 @@ const FormAboutCar = ({
             </h3>
 
             <Field
-              type='text'
-              placeholder='Nickname'
+              type={'text'}
               error={errors.nickName}
               {...register('nickName', {
                 required: true,
@@ -69,106 +97,79 @@ const FormAboutCar = ({
                   message: 'Min length is 3 symbols',
                 },
               })}
-            ></Field>
+            />
+          </div>
+          <div>
+            <h3 className='text-start m-2 text-xl text-slate-50 font-semibold	'>
+              Type
+            </h3>
+
+            <Listbox
+              name='type'
+              control={control}
+              rules={{ required: true }}
+              people={allCarTypes ? allCarTypes : []}
+            />
           </div>
           <div>
             <h3 className='text-start m-2 text-xl text-slate-50 font-semibold	'>
               Brand
             </h3>
 
-            <Field
-              type='text'
-              placeholder='Brand'
-              error={errors.brand}
-              {...register('brand', {
-                required: true,
-                minLength: {
-                  value: 3,
-                  message: 'Min length is 3 symbols',
-                },
-              })}
-            ></Field>
+            <Listbox
+              name='brand'
+              control={control}
+              rules={{ required: true }}
+              people={allBrand ? allBrand : []}
+            />
           </div>
-          <div>
-            <h3 className='text-start m-2 text-xl text-slate-50 font-semibold	'>
-              Model
-            </h3>
-
-            <Field
-              type='text'
-              placeholder='Model'
-              error={errors.model}
-              {...register('model', {
-                required: true,
-                minLength: {
-                  value: 3,
-                  message: 'Min length is 3 symbols',
-                },
-              })}
-            ></Field>
-          </div>
-          <div>
-            <h3 className='text-start m-2 text-xl text-slate-50 font-semibold	'>
-              Generation
-            </h3>
-
-            <Field
-              type='text'
-              placeholder='Generation'
-              error={errors.generation}
-              {...register('generation', {
-                required: true,
-                minLength: {
-                  value: 3,
-                  message: 'Min length is 3 symbols',
-                },
-              })}
-            ></Field>
-          </div>
-        </div>
-        <div>
           <div>
             <h3 className='text-start m-2 text-xl text-slate-50 font-semibold	'>
               Release
             </h3>
 
-            <Field
-              type='text'
-              placeholder='Release'
-              error={errors.release}
-              {...register('release', {
-                required: true,
-                minLength: {
-                  value: 3,
-                  message: 'Min length is 3 symbols',
-                },
-              })}
-            ></Field>
+            <Listbox
+              name='release'
+              control={control}
+              rules={{ required: true }}
+              people={allYers ? allYers : []}
+              onClick={fetchCarModel}
+            />
           </div>
+        </div>
+        <div>
+          <div>
+            <h3 className='text-start m-2 text-xl text-slate-50 font-semibold	'>
+              Model
+            </h3>
+
+            <Listbox
+              name='model'
+              control={control}
+              rules={{ required: true }}
+              people={[]}
+            />
+          </div>
+
           <div>
             <h3 className='text-start m-2 text-xl text-slate-50 font-semibold	'>
               Purchase time
             </h3>
 
-            <Field
-              type='text'
-              placeholder='Purchase time'
+            <Listbox
+              name='purchaseTime'
+              control={control}
               error={errors.purchaseTime}
-              {...register('purchaseTime', {
-                required: true,
-                minLength: {
-                  value: 3,
-                  message: 'Min length is 3 symbols',
-                },
-              })}
-            ></Field>
+              rules={{ required: true }}
+              people={[]}
+            />
           </div>
           <div className='mb-12'>
             <h3 className='text-start m-2 text-xl text-slate-50 font-semibold	'>
               Color
             </h3>
 
-            <Field
+            {/* <Field
               type='text'
               placeholder='color'
               error={errors.color}
@@ -179,7 +180,7 @@ const FormAboutCar = ({
                   message: 'Min length is 3 symbols',
                 },
               })}
-            ></Field>
+            ></Field> */}
           </div>
           <Switch
             defaultChecked={false}

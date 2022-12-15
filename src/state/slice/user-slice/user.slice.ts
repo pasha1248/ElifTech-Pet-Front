@@ -14,7 +14,7 @@ const initialState: IUserSlice = {
 }
 
 const UserSlice = createSlice({
-  name: 'refreshPassword',
+  name: 'user',
   initialState,
   reducers: {
     saveUserInStore: (state, action) => {
