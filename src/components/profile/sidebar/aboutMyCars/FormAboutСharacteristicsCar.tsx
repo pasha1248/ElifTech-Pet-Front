@@ -3,13 +3,15 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { MdNavigateNext } from 'react-icons/md'
+import { CarCharacter } from '../../../../common/const/carsData'
 import ButtonAuth from '../../../../ui/buttons/ButtonAuth'
 import Field from '../../../../ui/fields/Field'
+import { Listbox } from '../../../../ui/select/SelectHeadles'
 import Switch from '../../../../ui/switch/Switch'
 import { Typography } from '../../../../ui/Typography'
 import { IFormAboutCar } from './FormAboutCar'
 
-type IFormAboutCarCharacteristics = {
+export interface IFormAboutCarCharacteristics extends IFormAboutCar {
   motor: string
   engineCapacityLiters: string
   transmission: string
@@ -27,8 +29,9 @@ const FormAboutСharacteristicsCar = ({
     register,
     handleSubmit,
     watch,
+    control,
     formState: { errors },
-  } = useForm<IFormAboutCarCharacteristics>({
+  } = useForm<IFormAboutCarCharacteristics | any>({
     mode: 'onChange',
     defaultValues: defaultValue,
   })
@@ -58,72 +61,53 @@ const FormAboutСharacteristicsCar = ({
               Engine
             </h3>
 
-            <Field
-              type='text'
-              placeholder='Engine'
+            <Listbox
+              name='motor'
+              control={control}
+              rules={{ required: true }}
+              people={CarCharacter.EngiteType}
               error={errors.motor}
-              {...register('motor', {
-                required: true,
-                minLength: {
-                  value: 3,
-                  message: 'Min length is 3 symbols',
-                },
-              })}
-            ></Field>
+            />
           </div>
           <div>
             <h3 className='text-start m-2 text-xl text-slate-50 font-semibold	'>
               Capacity liters
             </h3>
 
-            <Field
-              type='text'
-              placeholder='Capacity liters'
+            <Listbox
+              name='engineCapacityLiters'
+              control={control}
+              rules={{ required: true }}
+              people={CarCharacter.EngineCapacity}
               error={errors.engineCapacityLiters}
-              {...register('engineCapacityLiters', {
-                required: true,
-                minLength: {
-                  value: 3,
-                  message: 'Min length is 3 symbols',
-                },
-              })}
-            ></Field>
+              liters
+            />
           </div>
           <div>
             <h3 className='text-start m-2 text-xl text-slate-50 font-semibold	'>
               Transmission
             </h3>
 
-            <Field
-              type='text'
-              placeholder='Transmission'
+            <Listbox
+              name='transmission'
+              control={control}
+              rules={{ required: true }}
+              people={CarCharacter.TypeTransmission}
               error={errors.transmission}
-              {...register('transmission', {
-                required: true,
-                minLength: {
-                  value: 3,
-                  message: 'Min length is 3 symbols',
-                },
-              })}
-            ></Field>
+            />
           </div>
           <div>
             <h3 className='text-start m-2 text-xl text-slate-50 font-semibold	'>
               Drive unit
             </h3>
 
-            <Field
-              type='text'
-              placeholder='Drive unit '
+            <Listbox
+              name='driveUnit'
+              control={control}
+              rules={{ required: true }}
+              people={CarCharacter.TypDrive}
               error={errors.driveUnit}
-              {...register('driveUnit', {
-                required: true,
-                minLength: {
-                  value: 3,
-                  message: 'Min length is 3 symbols',
-                },
-              })}
-            ></Field>
+            />
           </div>
         </div>
         <div>
@@ -134,16 +118,30 @@ const FormAboutСharacteristicsCar = ({
 
             <Field
               type='text'
-              placeholder='Mileage'
+              placeholder='km'
               error={errors.mileage}
               {...register('mileage', {
                 required: true,
-                minLength: {
-                  value: 3,
-                  message: 'Min length is 3 symbols',
-                },
               })}
             ></Field>
+          </div>
+          <div>
+            <h3 className='text-start m-2 text-xl text-slate-50 font-semibold	'>
+              Power
+            </h3>
+            <div className='relative'>
+              <Field
+                type='text'
+                placeholder='power'
+                error={errors.power}
+                {...register('power', {
+                  required: true,
+                })}
+              ></Field>
+              <Typography type={'Ag-14-regular'} className={'absolute top-14'}>
+                in horsepower
+              </Typography>
+            </div>
           </div>
           {/* 
           <Switch

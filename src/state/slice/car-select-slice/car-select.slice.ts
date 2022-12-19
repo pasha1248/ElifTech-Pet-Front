@@ -3,6 +3,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
   getAllBrand,
+  getAllYears,
   getCarModel,
   getTypesCar,
   getYears,
@@ -14,6 +15,13 @@ export interface ICarSelect {
   allYers: []
   allCarTypes: []
   allModel: string[]
+  allYearsFromCarApi: []
+}
+
+export interface IFetchModelCar {
+  brand: string
+  type: string
+  year: string
 }
 
 export interface IGetCarModule {
@@ -28,6 +36,7 @@ const initialState: ICarSelect = {
   allYers: [],
   allCarTypes: [],
   allModel: [],
+  allYearsFromCarApi: [],
 }
 
 export const CarSelectSlice = createSlice({
@@ -81,9 +90,34 @@ export const CarSelectSlice = createSlice({
       })
       .addCase(getCarModel.fulfilled, (state, action) => {
         state.isLoading = false
-        state.allModel = action.payload
+
+        const getOnlyModel = () => {
+          const models: string[] = []
+          action.payload.map((model: any) => {
+            models.push(model.model)
+          })
+
+          return models
+        }
+
+        state.allModel = getOnlyModel()
+
+        console.log(state.allModel)
       })
       .addCase(getCarModel.rejected, (state, action) => {
+        state.isLoading = false
+      })
+
+    //
+    builder
+      .addCase(getAllYears.pending, state => {
+        state.isLoading = true
+      })
+      .addCase(getAllYears.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.allYearsFromCarApi = action.payload
+      })
+      .addCase(getAllYears.rejected, (state, action) => {
         state.isLoading = false
       })
   },

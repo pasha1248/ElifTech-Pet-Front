@@ -7,16 +7,18 @@ import ProgressBarForm from './progressBarForCar/ProgressBarForm'
 import styles from './ProfileAboutMyCars.module.scss'
 import FormAboutCar from './FormAboutCar'
 import FormAboutСharacteristicsCar from './FormAboutСharacteristicsCar'
-import FromAddPhotoCar from './FromAddPhotoCar'
+import FromAddPhotoCar, { UploadPhotoRespons } from './FromAddPhotoCar'
 
 type Props = {}
 
 const AddNewCarForm = (props: Props) => {
   const { decrement, increment, page, totalPage } = useMultiForm(3)
+  const [photoId, setPhotoId] = React.useState<string[]>([])
+  const [photoUrl, setPhotoUrl] = React.useState<UploadPhotoRespons[] | any>([])
 
   const [fields, setFields] = React.useState({
-    model: 'audi',
     oldCar: false,
+    carPhoto: [],
   })
 
   return (
@@ -41,8 +43,11 @@ const AddNewCarForm = (props: Props) => {
       )}
       {page === 3 && (
         <FromAddPhotoCar
+          photoId={photoId}
+          setPhotoId={setPhotoId}
+          photoUrl={photoUrl}
+          setPhotoUrl={setPhotoUrl}
           defaultValue={fields}
-          setFields={setFields}
           increment={increment}
           decrement={decrement}
         />

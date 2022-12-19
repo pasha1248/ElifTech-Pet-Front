@@ -9,9 +9,19 @@ import styles from './Select.module.scss'
 import classNames from 'classnames'
 
 type Props = {
-  people: string[]
+  people: string[] | IFetchDataModleCar[] | any
   error?: any
   onClick?: any
+  model?: boolean
+  liters?: boolean
+}
+
+export interface IFetchDataModleCar {
+  id: number
+  make: string
+  model: string
+  type: string
+  year: number
 }
 
 export const Listbox = (props: Props & UseControllerProps) => {
@@ -19,7 +29,7 @@ export const Listbox = (props: Props & UseControllerProps) => {
     field: { value, onChange },
   } = useController(props)
 
-  const { people, error, onClick } = props
+  const { people, error, model = false, liters = false, onClick } = props
 
   return (
     <div>
@@ -39,20 +49,31 @@ export const Listbox = (props: Props & UseControllerProps) => {
             leaveTo='opacity-0'
           >
             <ListBox.Options className='absolute mt-1 z-10 top-14 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm'>
-              {people.map(person => (
+              {people.length !== 0 ? (
+                people.map((person: any) => (
+                  <ListBox.Option
+                    key={person}
+                    value={person}
+                    className={({ active }) =>
+                      `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                        active ? 'bg-blue-400 text-white' : 'text-gray-900'
+                      }`
+                    }
+                    onClick={() => onClick && onClick(person)}
+                  >
+                    {`${person} ${liters ? 'liters' : ''}  `}
+                  </ListBox.Option>
+                ))
+              ) : (
                 <ListBox.Option
-                  key={person}
-                  value={person}
+                  value={''}
                   className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? 'bg-blue-400 text-white' : 'text-gray-900'
-                    }`
+                    `relative cursor-default select-none py-2 pl-10 pr-4 `
                   }
-                  onClick={() => onClick && onClick(person)}
                 >
-                  {person}
+                  Nothing
                 </ListBox.Option>
-              ))}
+              )}
             </ListBox.Options>
           </Transition>
         </div>

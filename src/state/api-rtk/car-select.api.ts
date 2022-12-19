@@ -4,25 +4,20 @@ import { RootState } from './../store'
 
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 import { IUser } from '../slice/user-slice/user.interface'
+import { api } from './api-rtk'
+import { IFormAboutCarPhoto } from '../../components/profile/sidebar/aboutMyCars/FromAddPhotoCar'
 
-export const carSelectApi = createApi({
-  reducerPath: 'carSelect',
-  tagTypes: ['Article', 'Profile'],
-  baseQuery: fetchBaseQuery({
-    prepareHeaders: (headers, { getState }) => {
-      return headers
-    },
-  }),
-
+export const carSelectApi = api.injectEndpoints({
   endpoints: builder => ({
-    getProfile: builder.query<IUser, any>({
+    getAllCars: builder.query<IUser, any>({
       query: () => `${'user'}/profile`,
       providesTags: () => [{ type: 'Profile' }],
     }),
-    subscribeToChannel: builder.mutation<boolean, number>({
-      query: channelId => ({
-        url: `${'user'}/subscribe/${channelId}`,
-        method: 'PATCH',
+    createCar: builder.mutation<any, any>({
+      query: formData => ({
+        url: `car`,
+        body: formData,
+        method: 'POST',
       }),
       invalidatesTags: () => [{ type: 'Profile' }],
     }),

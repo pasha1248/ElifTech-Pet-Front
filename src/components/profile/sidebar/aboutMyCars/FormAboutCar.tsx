@@ -10,6 +10,8 @@ import { FieldAutoComplate } from '../../../../ui/select/FieldAutoComplate'
 import { Listbox } from '../../../../ui/select/SelectHeadles'
 import { useActions } from '../../../../hooks/useActions'
 import { useAppSelector } from '../../../../hooks/useReduxHooks'
+import { carSelectServise } from '../../../../services/car/carSelect.service'
+import { CarCharacter } from '../../../../common/const/carsData'
 
 export interface IFormAboutCar {
   model: string
@@ -22,6 +24,7 @@ export interface IFormAboutCar {
   purchaseTime: string
   color: string
   people: any
+  type: string
 }
 
 const FormAboutCar = ({
@@ -41,14 +44,21 @@ const FormAboutCar = ({
     defaultValues: defaultValue,
   })
 
-  const { allCarTypes, allBrand, allYers, isLoading } = useAppSelector(
-    state => state.carSelectSlice
-  )
+  const {
+    allCarTypes,
+    allBrand,
+    allYers,
+    allModel,
+    allYearsFromCarApi,
+    isLoading,
+  } = useAppSelector(state => state.carSelectSlice)
 
-  const { getAllBrand, getTypesCar, getYears } = useActions()
+  const { getAllBrand, getTypesCar, getYears, getCarModel, getAllYears } =
+    useActions()
 
   React.useEffect(() => {
     getTypesCar()
+    getAllYears()
     setTimeout(() => {
       getAllBrand()
       setTimeout(() => {
@@ -70,6 +80,7 @@ const FormAboutCar = ({
 
   const fetchCarModel = (year: string) => {
     console.log(watch('type'), year)
+    getCarModel({ brand: watch('brand'), type: watch('type'), year: year })
   }
 
   return (
@@ -109,6 +120,7 @@ const FormAboutCar = ({
               control={control}
               rules={{ required: true }}
               people={allCarTypes ? allCarTypes : []}
+              error={errors.type}
             />
           </div>
           <div>
@@ -121,6 +133,7 @@ const FormAboutCar = ({
               control={control}
               rules={{ required: true }}
               people={allBrand ? allBrand : []}
+              error={errors.brand}
             />
           </div>
           <div>
@@ -134,6 +147,7 @@ const FormAboutCar = ({
               rules={{ required: true }}
               people={allYers ? allYers : []}
               onClick={fetchCarModel}
+              error={errors.release}
             />
           </div>
         </div>
@@ -147,7 +161,9 @@ const FormAboutCar = ({
               name='model'
               control={control}
               rules={{ required: true }}
-              people={[]}
+              people={allModel ? allModel : []}
+              error={errors.model}
+              model
             />
           </div>
 
@@ -161,7 +177,7 @@ const FormAboutCar = ({
               control={control}
               error={errors.purchaseTime}
               rules={{ required: true }}
-              people={[]}
+              people={allYearsFromCarApi ? allYearsFromCarApi : []}
             />
           </div>
           <div className='mb-12'>
@@ -169,18 +185,13 @@ const FormAboutCar = ({
               Color
             </h3>
 
-            {/* <Field
-              type='text'
-              placeholder='color'
+            <Listbox
+              name='color'
+              control={control}
               error={errors.color}
-              {...register('color', {
-                required: true,
-                minLength: {
-                  value: 3,
-                  message: 'Min length is 3 symbols',
-                },
-              })}
-            ></Field> */}
+              rules={{ required: true }}
+              people={CarCharacter.Colors}
+            />
           </div>
           <Switch
             defaultChecked={false}

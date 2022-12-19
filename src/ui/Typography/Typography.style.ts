@@ -41,27 +41,27 @@ export const TypographyStyle = {
     defaultTagName: 'p',
   },
   'Ag-15-regular': {
-    className: 'text-Ag-15 font-normal',
+    className: 'text-Ag-15 font-normal text-gray-100',
     defaultTagName: 'p',
   },
   'Ag-14-regular': {
-    className: 'text-Ag-14 font-normal',
+    className: 'text-Ag-14 font-normal text-gray-100',
     defaultTagName: 'p',
   },
   'Ag-14-medium': {
-    className: 'text-Ag-14 font-medium',
+    className: 'text-Ag-14 font-medium text-gray-100',
     defaultTagName: 'p',
   },
   'Ag-13-medium': {
-    className: 'text-Ag-13 font-medium',
+    className: 'text-Ag-13 font-medium text-gray-100',
     defaultTagName: 'p',
   },
   'Ag-13-bold': {
-    className: 'text-Ag-13 font-bold',
+    className: 'text-Ag-13 font-bold text-gray-100',
     defaultTagName: 'p',
   },
   'Ag-12-normal': {
-    className: 'text-Ag-12 font-normal',
+    className: 'text-Ag-12 font-normal text-gray-100',
     defaultTagName: 'p',
   },
   'Ag-13-responsive': {

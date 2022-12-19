@@ -1,20 +1,41 @@
 /** @format */
 
-import React from 'react'
+import React, { Dispatch, FC, SetStateAction, useCallback } from 'react'
+import { useUploadFile } from '../../hooks/useUploadFile'
+import { useDropzone } from 'react-dropzone'
 
-interface Props {}
+export interface IUploadField {
+  title?: string
+  onChange: (...event: any) => void
+  folder?: string
+  setValue?: (val: number) => void
+  setIsChosen?: Dispatch<SetStateAction<boolean>>
+}
 
-const FieldUploadFoto = (props: Props) => {
-  const handlePhotos = (e: any) => {
-    const files = e.target.files
+const FieldUploadFoto: FC<IUploadField> = ({
+  title,
+  onChange,
+  folder,
+  setValue,
+  setIsChosen,
+}) => {
+  const { uploadFile } = useUploadFile(onChange, folder, setValue, setIsChosen)
+  const handlePhotos = (e: any) => {}
 
-    const formData = new FormData()
-    formData.append('media', files[0])
+  const onDrop = (acceptedFiles: any) => {
+    uploadFile(acceptedFiles)
   }
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+  })
 
   return (
     <div>
-      <div className='flex items-center justify-center w-full'>
+      <div
+        {...getRootProps()}
+        className='flex items-center justify-center w-full'
+      >
         <label
           htmlFor='dropzone-file'
           className='flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600'
@@ -44,10 +65,10 @@ const FieldUploadFoto = (props: Props) => {
             </p>
           </div>
           <input
+            {...getInputProps()}
             id='dropzone-file'
             multiple
             type='file'
-            onChange={handlePhotos}
             className='hidden'
           />
         </label>

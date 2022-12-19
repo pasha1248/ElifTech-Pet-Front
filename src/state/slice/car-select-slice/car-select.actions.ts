@@ -7,7 +7,7 @@ import {
   notifySuccess,
 } from '../../../common/notifications/notifications'
 import { carSelectServise } from '../../../services/car/carSelect.service'
-import { IGetCarModule } from './car-select.slice'
+import { IFetchModelCar, IGetCarModule } from './car-select.slice'
 
 export const getAllBrand = createAsyncThunk(
   'car/getAllBrand',
@@ -57,11 +57,27 @@ export const getTypesCar = createAsyncThunk(
   }
 )
 
-export const getCarModel = createAsyncThunk<string[]>(
+export const getCarModel = createAsyncThunk<[], IFetchModelCar>(
   'car/getCarModel',
-  async ({ brand, type, year }: any, thunkAPI): Promise<any> => {
+  async ({ brand, type, year }: any, thunkAPI) => {
     try {
       const response = await carSelectServise.getCarModel(brand, type, year)
+
+      return response
+    } catch (e: any) {
+      if (e instanceof AxiosError) {
+        notifyError(e.response?.data?.message)
+        return thunkAPI.rejectWithValue(e.response?.data?.message)
+      }
+    }
+  }
+)
+
+export const getAllYears = createAsyncThunk(
+  'car/getAllYears',
+  async (_, thunkAPI) => {
+    try {
+      const response = await carSelectServise.getAllYears()
 
       return response
     } catch (e: any) {

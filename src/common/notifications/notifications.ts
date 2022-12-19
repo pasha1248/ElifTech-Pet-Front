@@ -24,12 +24,16 @@ export const notifySuccess = (text: string) =>
     autoClose: 3000,
   })
 
-export const notifySuccessSendCode = (id: any, text: string) =>
+export const notifySuccessSendCode = (
+  id: any,
+  text: string,
+  forRefresh = false
+) =>
   toast.update(id, {
     render: text,
     type: 'success',
     isLoading: false,
-    autoClose: 10000,
+    autoClose: forRefresh ? 10000 : 3000,
   })
 
 export const notifyLoading = (isLoading: any) =>
