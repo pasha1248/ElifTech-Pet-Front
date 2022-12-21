@@ -7,19 +7,19 @@ import { IMediaResponse } from './carSelect.interface'
 
 export const carSelectServise = {
   async getAllCarsBrand() {
-    const responce = await carApi.get('/makes/')
+    const responce = await carApi.get('cars/makes')
 
     return responce.data
   },
 
   async getTypesCar() {
-    const responce = await carApi.get('/types/')
+    const responce = await carApi.get('cars/types')
 
     return responce.data
   },
 
   async getYears() {
-    const responce = await carApi.get('/years/')
+    const responce = await carApi.get('cars/years')
     const newResponce = responce.data.sort().reverse()
 
     return newResponce
@@ -27,7 +27,7 @@ export const carSelectServise = {
 
   async getCarModel(make: string, type: string, year: string) {
     const responce = await carApi.get(
-      `?limit=50&make=${make}&year=${year}&type=${type}`
+      `cars?limit=50&make=${make}&year=${year}&type=${type}`
     )
     return responce.data
   },
@@ -75,5 +75,9 @@ export const carSelectServise = {
         }
       },
     })
+  },
+
+  async deletePhoto(photo: string, photoUrl: string) {
+    return await api.get(`media?photoId=${photo}&photoUrl=${photoUrl}`)
   },
 }

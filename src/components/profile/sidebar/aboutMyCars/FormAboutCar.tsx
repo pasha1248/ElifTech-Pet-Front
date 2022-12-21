@@ -63,8 +63,8 @@ const FormAboutCar = ({
       getAllBrand()
       setTimeout(() => {
         getYears()
-      }, 2000)
-    }, 2000)
+      }, 3000)
+    }, 3000)
     // getAllBrand()
   }, [])
 

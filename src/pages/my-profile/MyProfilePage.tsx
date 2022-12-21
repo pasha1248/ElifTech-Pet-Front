@@ -1,6 +1,7 @@
 /** @format */
 
 import React from 'react'
+import ProfilePosts from '../../components/profile/posts/ProfilePosts'
 import ProfileSidebar from '../../components/profile/sidebar/ProfileSidebar'
 // @ts-ignore:next-line
 import styles from './MyProfilePage.module.scss'
@@ -13,7 +14,9 @@ const MyProfilePage = (props: Props) => {
       <div>
         <ProfileSidebar />
       </div>
-      <div style={{ background: 'orange' }}>Hello</div>
+      <div style={{ background: 'orange' }}>
+        <ProfilePosts />
+      </div>
       <div style={{ background: 'orange' }}>Hello</div>
     </div>
   )

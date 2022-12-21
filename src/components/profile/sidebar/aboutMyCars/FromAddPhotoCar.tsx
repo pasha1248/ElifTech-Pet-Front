@@ -13,13 +13,17 @@ import { IMediaResponse } from '../../../../services/car/carSelect.interface'
 import { api } from '../../../../state/api-rtk/api-rtk'
 import { carSelectApi } from '../../../../state/api-rtk/car-select.api'
 import ButtonAuth from '../../../../ui/buttons/ButtonAuth'
+import DragAndDrop from '../../../../ui/drag&drop/DragAndDrop'
 import FieldUploadFoto from '../../../../ui/fields/FieldUploadFoto'
 import TextArea from '../../../../ui/text-area/TextArea'
 import { Typography } from '../../../../ui/Typography'
 import { IFormAboutCarCharacteristics } from './FormAboutСharacteristicsCar'
 import InfoButtonFormImage from './InfoButtonFormImage'
+import { Draggable } from '@hello-pangea/dnd'
 // @ts-ignore: next-line
 import styles from './ProfileAboutMyCars.module.scss'
+import ContainerForUploadPhoto from './ContainerForUploadPhoto'
+import TestGrag from '../../../../ui/drag&drop/DragAndDrop'
 
 export interface IFormAboutCarPhoto extends IFormAboutCarCharacteristics {
   photo: string[]
@@ -55,7 +59,8 @@ const FromAddPhotoCar = ({
     defaultValues: defaultValue,
   })
 
-  const [createCar, { isLoading, error }] = carSelectApi.useCreateCarMutation()
+  const [createCar, { isLoading, error, isSuccess }] =
+    carSelectApi.useCreateCarMutation()
 
   console.log(photoUrl)
 
@@ -63,10 +68,15 @@ const FromAddPhotoCar = ({
     Pick<IFormAboutCarPhoto, 'photo' & 'description'>
   > = async dataFrom => {
     const submitData: IFormAboutCarPhoto = { ...defaultValue, ...dataFrom }
+    const newPhoto: string[] = []
+    photoUrl.map((photo: UploadPhotoRespons) => {
+      newPhoto.push(photo.id)
+    })
+
     const data = {
       model: submitData.model,
       description: submitData.description,
-      photoPath: photoId,
+      photoPath: newPhoto,
       name: submitData.nickName,
       yearOfPurchase: submitData.purchaseTime,
       year: submitData.release,
@@ -83,18 +93,17 @@ const FromAddPhotoCar = ({
 
     const idNoti = toast.loading('Please wait...')
 
-    try {
-      createCar(data)
+    await createCar(data)
 
-      notifySuccessSendCode(idNoti, 'Car created')
-    } catch (error: any) {
+    isSuccess && notifySuccessSendCode(idNoti, 'Car created')
+
+    error &&
       toast.update(idNoti, {
-        render: error.response?.data?.message,
+        render: 'Error',
         type: 'error',
         isLoading: false,
         autoClose: 3000,
       })
-    }
   }
 
   return (
@@ -106,41 +115,43 @@ const FromAddPhotoCar = ({
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.photosContainer}>
           <div>
-            <FieldUploadFoto
-              folder='carPhoto'
-              onChange={(val: UploadPhotoRespons) => {
-                setPhotoId([...photoId, val.id])
-                setPhotoUrl([...photoUrl, val])
-                console.log(photoUrl)
-                console.log(val)
-                console.log(photoId)
-              }}
-            />
-            {errors.photo && 'Error'}
-          </div>
-          <div className={styles.containerImages}>
-            {photoUrl.length &&
-              photoUrl.map((photo: UploadPhotoRespons) => (
-                <InfoButtonFormImage photo={photo} />
-              ))}
-          </div>
-        </div>
+            <div>
+              <FieldUploadFoto
+                folder='carPhoto'
+                onChange={(val: UploadPhotoRespons) => {
+                  setPhotoId([...photoId, val.id])
+                  setPhotoUrl([...photoUrl, val])
+                }}
+              />
+              {errors.photo && 'Error'}
+            </div>
 
-        <div>
-          <h3 className='text-start m-2 text-xl text-slate-50 font-semibold	'>
-            Describe your car
-          </h3>
-          <TextArea
-            {...register('description', {
-              required: 'Description is required',
-            })}
-            placeholder='Description'
-            error={errors.description}
-          />
-          {errors.description && 'Error'}
-          <div>
-            <ButtonAuth type='submit'>Create car</ButtonAuth>
+            <div>
+              <h3 className='text-start m-2 text-xl text-slate-50 font-semibold	'>
+                Describe your car
+              </h3>
+              <TextArea
+                {...register('description', {
+                  required: 'Description is required',
+                })}
+                placeholder='Description'
+                error={errors.description}
+              />
+              {errors.description && 'Error'}
+              <div>
+                <ButtonAuth type='submit'>Create car</ButtonAuth>
+              </div>
+            </div>
           </div>
+          <div>
+            <ContainerForUploadPhoto
+              setPhotoUrl={setPhotoUrl}
+              setPhotoId={setPhotoId}
+              photoUrl={photoUrl}
+              photoId={photoId}
+            />
+          </div>
+          {/* <TestGrag /> */}
         </div>
       </form>
     </div>

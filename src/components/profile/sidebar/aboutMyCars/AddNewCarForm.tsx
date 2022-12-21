@@ -19,6 +19,18 @@ const AddNewCarForm = (props: Props) => {
   const [fields, setFields] = React.useState({
     oldCar: false,
     carPhoto: [],
+    brand: ['Select your'],
+
+    model: ['Select your'],
+    type: ['Select your'],
+    generation: ['Select your'],
+    release: ['Select your'],
+    purchaseTime: ['Select your'],
+    color: ['Select your'],
+    motor: ['Select your'],
+    engineCapacityLiters: ['Select your'],
+    transmission: ['Select your'],
+    driveUnit: ['Select your'],
   })
 
   return (

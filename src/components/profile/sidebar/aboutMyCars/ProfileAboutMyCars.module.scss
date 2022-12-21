@@ -1,9 +1,10 @@
 /** @format */
 
+// /** @format */
+
 .containerForm {
-  backdrop-filter: blur(30px);
-  background-color: rgba(29, 29, 43, 0.7);
-  height: 100%;
+  // backdrop-filter: blur(30px);
+  background-color: rgba(29, 29, 43, 0.9);
 
   padding: 20px;
   border-radius: 24px;
@@ -16,16 +17,17 @@
 }
 
 .containerImages {
-  margin: 5px;
-  padding-left: 5px;
   display: flex;
-
-  align-self: center;
-  flex: wrap;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  position: relative;
 
   .smallImage {
     @apply shadow-md;
     position: relative;
+
+    margin: 10px;
 
     img {
       border-radius: 10px;

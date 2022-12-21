@@ -1,6 +1,9 @@
 /** @format */
 
-import { ChangeEvent, Dispatch, SetStateAction } from 'react'
+import { notifyError } from './../common/notifications/notifications'
+/** @format */
+
+import React, { ChangeEvent, Dispatch, SetStateAction } from 'react'
 import { carSelectServise } from '../services/car/carSelect.service'
 
 export const useUploadFile = (
@@ -9,10 +12,20 @@ export const useUploadFile = (
   setValue?: (val: number) => void,
   setIsChosen?: Dispatch<SetStateAction<boolean>>
 ) => {
+  const [loading, setLoading] = React.useState(false)
+
   const uploadCarPhopo = async (formData: FormData) => {
+    setLoading(true)
     const responce = await carSelectServise
       .upload(formData, folder, setValue)
-      .then(res => onChange(res.data))
+      .then(res => {
+        onChange(res.data)
+        setLoading(false)
+      })
+      .catch(error => {
+        notifyError('Error')
+        setLoading(false)
+      })
   }
 
   const uploadFile = async (e: any) => {
@@ -28,5 +41,6 @@ export const useUploadFile = (
 
   return {
     uploadFile,
+    loading,
   }
 }

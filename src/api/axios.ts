@@ -9,13 +9,6 @@ const api = axios.create({
   withCredentials: true,
 })
 
-api.interceptors.request.use((config: any) => {
-  console.log(cookieServices.get('refresh_token'))
-  config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
-
-  return config
-})
-
 api.interceptors.response.use(
   (config: any) => {
     return config

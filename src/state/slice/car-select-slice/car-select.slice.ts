@@ -2,11 +2,13 @@
 
 import { createSlice } from '@reduxjs/toolkit'
 import {
+  deletePhoto,
   getAllBrand,
   getAllYears,
   getCarModel,
   getTypesCar,
   getYears,
+  upload,
 } from './car-select.actions'
 
 export interface ICarSelect {
@@ -118,6 +120,28 @@ export const CarSelectSlice = createSlice({
         state.allYearsFromCarApi = action.payload
       })
       .addCase(getAllYears.rejected, (state, action) => {
+        state.isLoading = false
+      })
+    //
+    builder
+      .addCase(deletePhoto.pending, state => {
+        state.isLoading = true
+      })
+      .addCase(deletePhoto.fulfilled, (state, action) => {
+        state.isLoading = false
+      })
+      .addCase(deletePhoto.rejected, (state, action) => {
+        state.isLoading = false
+      })
+    //
+    builder
+      .addCase(upload.pending, state => {
+        state.isLoading = true
+      })
+      .addCase(upload.fulfilled, (state, action) => {
+        state.isLoading = false
+      })
+      .addCase(upload.rejected, (state, action) => {
         state.isLoading = false
       })
   },

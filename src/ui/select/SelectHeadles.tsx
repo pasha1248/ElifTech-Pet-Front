@@ -65,14 +65,11 @@ export const Listbox = (props: Props & UseControllerProps) => {
                   </ListBox.Option>
                 ))
               ) : (
-                <ListBox.Option
-                  value={''}
-                  className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-10 pr-4 `
-                  }
+                <div
+                  className={`relative cursor-default select-none py-2 pl-10 pr-4 `}
                 >
                   Nothing
-                </ListBox.Option>
+                </div>
               )}
             </ListBox.Options>
           </Transition>

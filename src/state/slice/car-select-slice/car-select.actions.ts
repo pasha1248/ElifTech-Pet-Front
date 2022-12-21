@@ -88,3 +88,35 @@ export const getAllYears = createAsyncThunk(
     }
   }
 )
+
+export const deletePhoto = createAsyncThunk(
+  'car/deletePhoto',
+  async ({ photoId, photoUrl }: any, thunkAPI) => {
+    try {
+      const response = await carSelectServise.deletePhoto(photoId, photoUrl)
+
+      return response
+    } catch (e: any) {
+      if (e instanceof AxiosError) {
+        notifyError(e.response?.data?.message)
+        return thunkAPI.rejectWithValue(e.response?.data?.message)
+      }
+    }
+  }
+)
+
+export const upload = createAsyncThunk(
+  'car/uploadPhoto',
+  async ({ formData, folder, setValue, onChange }: any, thunkAPI) => {
+    try {
+      const response = await carSelectServise.upload(formData, folder, setValue)
+      onChange(response)
+      return response
+    } catch (e: any) {
+      if (e instanceof AxiosError) {
+        notifyError(e.response?.data?.message)
+        return thunkAPI.rejectWithValue(e.response?.data?.message)
+      }
+    }
+  }
+)
