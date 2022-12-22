@@ -38,6 +38,7 @@ const FormAboutCar = ({
     handleSubmit,
     control,
     watch,
+    getValues,
     formState: { errors },
   } = useForm<any>({
     mode: 'onChange',
@@ -118,7 +119,11 @@ const FormAboutCar = ({
             <Listbox
               name='type'
               control={control}
-              rules={{ required: true }}
+              rules={{
+                validate: value => {
+                  return value !== 'Select your'
+                },
+              }}
               people={allCarTypes ? allCarTypes : []}
               error={errors.type}
             />
@@ -131,7 +136,11 @@ const FormAboutCar = ({
             <Listbox
               name='brand'
               control={control}
-              rules={{ required: true }}
+              rules={{
+                validate: value => {
+                  return value !== 'Select your'
+                },
+              }}
               people={allBrand ? allBrand : []}
               error={errors.brand}
             />
@@ -144,7 +153,11 @@ const FormAboutCar = ({
             <Listbox
               name='release'
               control={control}
-              rules={{ required: true }}
+              rules={{
+                validate: value => {
+                  return value !== 'Select your'
+                },
+              }}
               people={allYers ? allYers : []}
               onClick={fetchCarModel}
               error={errors.release}
@@ -160,7 +173,11 @@ const FormAboutCar = ({
             <Listbox
               name='model'
               control={control}
-              rules={{ required: true }}
+              rules={{
+                validate: value => {
+                  return value !== 'Select your'
+                },
+              }}
               people={allModel ? allModel : []}
               error={errors.model}
               model
@@ -176,7 +193,11 @@ const FormAboutCar = ({
               name='purchaseTime'
               control={control}
               error={errors.purchaseTime}
-              rules={{ required: true }}
+              rules={{
+                validate: value => {
+                  return value !== 'Select your'
+                },
+              }}
               people={allYearsFromCarApi ? allYearsFromCarApi : []}
             />
           </div>
@@ -189,7 +210,11 @@ const FormAboutCar = ({
               name='color'
               control={control}
               error={errors.color}
-              rules={{ required: true }}
+              rules={{
+                validate: value => {
+                  return value !== 'Select your'
+                },
+              }}
               people={CarCharacter.Colors}
             />
           </div>

@@ -8,11 +8,7 @@ import styles from './ProfilePosts.module.scss'
 type Props = {}
 
 const ProfilePosts = (props: Props) => {
-  return (
-    <div>
-      <TestGrag />
-    </div>
-  )
+  return <div></div>
 }
 
 export default ProfilePosts

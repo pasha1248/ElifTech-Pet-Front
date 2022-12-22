@@ -49,6 +49,7 @@ const ContainerForUploadPhoto = ({
                         setPhotoId={setPhotoId}
                         photoUrl={photos}
                         photoId={photoId}
+                        index={index + 1}
                       />
                     )}
                   </Draggable>

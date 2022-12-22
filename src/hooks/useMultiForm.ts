@@ -26,5 +26,6 @@ export const useMultiForm = (count: number) => {
     increment,
     decrement,
     page,
+    changePage: setPage,
   }
 }

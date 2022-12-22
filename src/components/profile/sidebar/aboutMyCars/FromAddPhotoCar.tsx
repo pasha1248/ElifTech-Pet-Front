@@ -24,6 +24,8 @@ import { Draggable } from '@hello-pangea/dnd'
 import styles from './ProfileAboutMyCars.module.scss'
 import ContainerForUploadPhoto from './ContainerForUploadPhoto'
 import TestGrag from '../../../../ui/drag&drop/DragAndDrop'
+import { initValueForCreateCarForm } from './AddNewCarForm'
+import { MdArrowBackIosNew, MdNavigateNext } from 'react-icons/md'
 
 export interface IFormAboutCarPhoto extends IFormAboutCarCharacteristics {
   photo: string[]
@@ -45,8 +47,10 @@ const FromAddPhotoCar = ({
   photoUrl,
   setPhotoUrl,
   defaultValue,
-  setFields,
+  clearDefault,
+  changePage,
   increment,
+  decrement,
 }: any) => {
   const {
     register,
@@ -94,21 +98,25 @@ const FromAddPhotoCar = ({
     const idNoti = toast.loading('Please wait...')
 
     await createCar(data)
-
-    isSuccess && notifySuccessSendCode(idNoti, 'Car created')
-
-    error &&
-      toast.update(idNoti, {
-        render: 'Error',
-        type: 'error',
-        isLoading: false,
-        autoClose: 3000,
+      .then(() => {
+        notifySuccessSendCode(idNoti, 'Car created')
+        clearDefault(initValueForCreateCarForm)
+        setPhotoUrl([])
+        changePage(1)
       })
+      .catch(error =>
+        toast.update(idNoti, {
+          render: 'Error',
+          type: 'error',
+          isLoading: false,
+          autoClose: 3000,
+        })
+      )
   }
 
   return (
     <div>
-      <Typography type={'h1'} style={{ fontSize: '25px' }}>
+      <Typography type={'h1'} style={{ fontSize: '25px' }} className={'mb-4'}>
         Select a photo
       </Typography>
 
@@ -127,7 +135,7 @@ const FromAddPhotoCar = ({
             </div>
 
             <div>
-              <h3 className='text-start m-2 text-xl text-slate-50 font-semibold	'>
+              <h3 className='text-start m-2 text-xl text-slate-50 font-semibold	my-3.5'>
                 Describe your car
               </h3>
               <TextArea
@@ -138,9 +146,6 @@ const FromAddPhotoCar = ({
                 error={errors.description}
               />
               {errors.description && 'Error'}
-              <div>
-                <ButtonAuth type='submit'>Create car</ButtonAuth>
-              </div>
             </div>
           </div>
           <div>
@@ -152,6 +157,27 @@ const FromAddPhotoCar = ({
             />
           </div>
           {/* <TestGrag /> */}
+        </div>
+        <div className='flex justify-between	mt-4 gap-6'>
+          <ButtonAuth onClick={decrement} className='w-full mt-6'>
+            <MdArrowBackIosNew
+              color='blue'
+              size={32}
+              className='ml-2'
+              style={{ color: 'white' }}
+            />
+            decrement
+          </ButtonAuth>
+
+          <ButtonAuth type='submit' className='w-full mt-6'>
+            Create car{' '}
+            <MdNavigateNext
+              color='blue'
+              size={32}
+              className='ml-2'
+              style={{ color: 'white' }}
+            />
+          </ButtonAuth>
         </div>
       </form>
     </div>

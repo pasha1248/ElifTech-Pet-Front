@@ -1,0 +1,26 @@
+/** @format */
+
+.containerForSmallCar {
+  position: relative;
+
+  img {
+    border-radius: 12px;
+  }
+
+  .iconFromPhoto {
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+
+    bottom: 10px;
+    width: 100%;
+
+    h3 {
+      border: 1px solid rgb(47, 0, 255);
+      padding: 10px;
+
+      border-radius: 50%;
+      color: rgb(64, 0, 255);
+    }
+  }
+}

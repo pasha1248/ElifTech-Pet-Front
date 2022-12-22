@@ -8,30 +8,31 @@ import styles from './ProfileAboutMyCars.module.scss'
 import FormAboutCar from './FormAboutCar'
 import FormAboutСharacteristicsCar from './FormAboutСharacteristicsCar'
 import FromAddPhotoCar, { UploadPhotoRespons } from './FromAddPhotoCar'
+import ButtonAuth from '../../../../ui/buttons/ButtonAuth'
 
 type Props = {}
+export const initValueForCreateCarForm = {
+  oldCar: false,
+  carPhoto: [],
+  brand: 'Select your',
+  model: 'Select your',
+  type: 'Select your',
+  generation: 'Select your',
+  release: 'Select your',
+  purchaseTime: 'Select your',
+  color: 'Select your',
+  motor: 'Select your',
+  engineCapacityLiters: 'Select your',
+  transmission: 'Select your',
+  driveUnit: 'Select your',
+}
 
 const AddNewCarForm = (props: Props) => {
-  const { decrement, increment, page, totalPage } = useMultiForm(3)
+  const { decrement, increment, page, totalPage, changePage } = useMultiForm(3)
   const [photoId, setPhotoId] = React.useState<string[]>([])
   const [photoUrl, setPhotoUrl] = React.useState<UploadPhotoRespons[] | any>([])
 
-  const [fields, setFields] = React.useState({
-    oldCar: false,
-    carPhoto: [],
-    brand: ['Select your'],
-
-    model: ['Select your'],
-    type: ['Select your'],
-    generation: ['Select your'],
-    release: ['Select your'],
-    purchaseTime: ['Select your'],
-    color: ['Select your'],
-    motor: ['Select your'],
-    engineCapacityLiters: ['Select your'],
-    transmission: ['Select your'],
-    driveUnit: ['Select your'],
-  })
+  const [fields, setFields] = React.useState(initValueForCreateCarForm)
 
   return (
     <div className={styles.containerForm}>
@@ -60,12 +61,12 @@ const AddNewCarForm = (props: Props) => {
           photoUrl={photoUrl}
           setPhotoUrl={setPhotoUrl}
           defaultValue={fields}
+          clearDefault={setFields}
           increment={increment}
           decrement={decrement}
+          changePage={changePage}
         />
       )}
-
-      <button onClick={decrement}>decrement</button>
     </div>
   )
 }

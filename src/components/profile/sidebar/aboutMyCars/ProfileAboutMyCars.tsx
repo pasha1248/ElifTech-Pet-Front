@@ -41,17 +41,17 @@ const ProfileAboutMyCars = (props: Props) => {
               <Typography type={'Ag-16-regular'} className={'m-2'}>
                 Please add your car ...
               </Typography>
-              <ButtonAuth onClick={() => setShow(true)}>
-                Add car <AiOutlinePlus className='ml-2' size={28} />
-              </ButtonAuth>
-
-              <BasicModalScreen active={show} setActive={() => setShow(false)}>
-                <AddNewCarForm />
-              </BasicModalScreen>
             </>
           ) : (
             data?.cars.map((car: ICar) => <CarCard car={car} />)
           )}
+          <ButtonAuth onClick={() => setShow(true)}>
+            Add car <AiOutlinePlus className='ml-2' size={28} />
+          </ButtonAuth>
+
+          <BasicModalScreen active={show} setActive={() => setShow(false)}>
+            <AddNewCarForm />
+          </BasicModalScreen>
         </div>
       </div>
     </div>

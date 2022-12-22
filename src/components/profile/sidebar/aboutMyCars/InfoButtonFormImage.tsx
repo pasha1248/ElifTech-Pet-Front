@@ -3,9 +3,11 @@
 import React from 'react'
 import { useActions } from '../../../../hooks/useActions'
 import { carSelectServise } from '../../../../services/car/carSelect.service'
+import { Typography } from '../../../../ui/Typography'
 import { UploadPhotoRespons } from './FromAddPhotoCar'
 // @ts-ignore: next-line
 import styles from './ProfileAboutMyCars.module.scss'
+import { GiArrowDunk } from 'react-icons/gi'
 
 interface Props {
   photo: UploadPhotoRespons
@@ -14,6 +16,7 @@ interface Props {
   photoId?: any[]
   photoUrl?: any[]
   provided: any
+  index: number
 }
 
 const InfoButtonFormImage: React.FC<Props> = ({
@@ -22,6 +25,7 @@ const InfoButtonFormImage: React.FC<Props> = ({
   setPhotoId,
   photoUrl,
   photoId,
+  index,
   provided,
 }) => {
   const [openButtons, setOpenButtons] = React.useState(false)
@@ -40,26 +44,30 @@ const InfoButtonFormImage: React.FC<Props> = ({
   }
 
   return (
-    <div
-      className={styles.smallImage}
-      onMouseOver={() => setOpenButtons(true)}
-      onMouseOut={() => setOpenButtons(false)}
-      ref={provided.innerRef}
-      {...provided.draggableProps}
-      {...provided.dragHandleProps}
-    >
-      <img
-        src={photo.path}
-        key={photo.id}
-        alt={photo.id}
-        height={'88px'}
-        width={'170px'}
-      />
-      <div className={openButtons ? styles.buttonsOpen : styles.buttons}>
-        <ul>
-          <li>Make main</li>
-          <li onClick={deletePhotos}>Delete</li>
-        </ul>
+    <div>
+      <Typography className='mb-2 flex justify-center' type='Ag-16-semibold'>
+        Number {index}
+      </Typography>
+      <div
+        className={styles.smallImage}
+        onMouseOver={() => setOpenButtons(true)}
+        onMouseOut={() => setOpenButtons(false)}
+        ref={provided.innerRef}
+        {...provided.draggableProps}
+        {...provided.dragHandleProps}
+      >
+        <img
+          src={photo.path}
+          key={photo.id}
+          alt={photo.id}
+          height={'120px'}
+          width={'230px'}
+        />
+        <div className={openButtons ? styles.buttonsOpen : styles.buttons}>
+          <ul>
+            <li onClick={deletePhotos}>Delete</li>
+          </ul>
+        </div>
       </div>
     </div>
   )

@@ -40,7 +40,7 @@ export const Listbox = (props: Props & UseControllerProps) => {
           })}
         >
           <ListBox.Button className={styles.select2}>
-            {value ? value : 'Select your'}
+            {value ? value : 'Selects your'}
           </ListBox.Button>
           <Transition
             as={Fragment}

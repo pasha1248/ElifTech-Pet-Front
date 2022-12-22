@@ -10,6 +10,7 @@ import { Listbox } from '../../../../ui/select/SelectHeadles'
 import Switch from '../../../../ui/switch/Switch'
 import { Typography } from '../../../../ui/Typography'
 import { IFormAboutCar } from './FormAboutCar'
+import { MdArrowBackIosNew } from 'react-icons/md'
 
 export interface IFormAboutCarCharacteristics extends IFormAboutCar {
   motor: string
@@ -24,11 +25,13 @@ const FormAboutСharacteristicsCar = ({
   defaultValue,
   setFields,
   increment,
+  decrement,
 }: any) => {
   const {
     register,
     handleSubmit,
     watch,
+    getValues,
     control,
     formState: { errors },
   } = useForm<IFormAboutCarCharacteristics | any>({
@@ -64,7 +67,11 @@ const FormAboutСharacteristicsCar = ({
             <Listbox
               name='motor'
               control={control}
-              rules={{ required: true }}
+              rules={{
+                validate: value => {
+                  return getValues('motor') !== 'Select your'
+                },
+              }}
               people={CarCharacter.EngiteType}
               error={errors.motor}
             />
@@ -77,7 +84,11 @@ const FormAboutСharacteristicsCar = ({
             <Listbox
               name='engineCapacityLiters'
               control={control}
-              rules={{ required: true }}
+              rules={{
+                validate: value => {
+                  return getValues('engineCapacityLiters') !== 'Select your'
+                },
+              }}
               people={CarCharacter.EngineCapacity}
               error={errors.engineCapacityLiters}
               liters
@@ -91,7 +102,11 @@ const FormAboutСharacteristicsCar = ({
             <Listbox
               name='transmission'
               control={control}
-              rules={{ required: true }}
+              rules={{
+                validate: value => {
+                  return getValues('transmission') !== 'Select your'
+                },
+              }}
               people={CarCharacter.TypeTransmission}
               error={errors.transmission}
             />
@@ -104,7 +119,11 @@ const FormAboutСharacteristicsCar = ({
             <Listbox
               name='driveUnit'
               control={control}
-              rules={{ required: true }}
+              rules={{
+                validate: value => {
+                  return getValues('driveUnit') !== 'Select your'
+                },
+              }}
               people={CarCharacter.TypDrive}
               error={errors.driveUnit}
             />
@@ -155,16 +174,29 @@ const FormAboutСharacteristicsCar = ({
             Turn it on if you are adding a car that you have driven before
           </Typography> */}
         </div>
-        <div></div>
-        <ButtonAuth type='submit' className='w-full mt-6'>
-          Next step
-          <MdNavigateNext
-            color='blue'
-            size={32}
-            className='ml-2'
-            style={{ color: 'white' }}
-          />
-        </ButtonAuth>
+        <div>
+          {' '}
+          <ButtonAuth className='w-full mt-6' onClick={decrement}>
+            <MdArrowBackIosNew
+              color='blue'
+              size={32}
+              className='ml-2'
+              style={{ color: 'white' }}
+            />
+            decrement
+          </ButtonAuth>
+        </div>
+        <div>
+          <ButtonAuth type='submit' className='w-full mt-6'>
+            Next step
+            <MdNavigateNext
+              color='blue'
+              size={32}
+              className='ml-2'
+              style={{ color: 'white' }}
+            />
+          </ButtonAuth>
+        </div>
       </form>
     </div>
   )

@@ -10,14 +10,14 @@ interface Props {}
 
 const MyProfilePage = (props: Props) => {
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container}`}>
       <div>
         <ProfileSidebar />
       </div>
-      <div style={{ background: 'orange' }}>
+      <div className={styles.containerNeo}>
         <ProfilePosts />
       </div>
-      <div style={{ background: 'orange' }}>Hello</div>
+      <div className={styles.containerNeo}>Hello</div>
     </div>
   )
 }
