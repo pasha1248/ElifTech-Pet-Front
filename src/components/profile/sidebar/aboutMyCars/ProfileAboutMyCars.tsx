@@ -20,30 +20,27 @@ import { carSelectServise } from '../../../../services/car/carSelect.service'
 interface Props {}
 
 const ProfileAboutMyCars = (props: Props) => {
-  const { user } = useAppSelector(
-    (state: { authSlice: any }) => state.authSlice
-  )
+  const { user } = useAppSelector(state => state.userSlice)
 
   const [show, setShow] = React.useState(false)
 
-  const { data, isLoading } = api.useGetProfileQuery(null, {
-    skip: !user,
-  })
-  var model = 'camry'
+  // const { data, isLoading } = api.useGetProfileQuery(null, {
+  //   skip: !user,
+  // })
 
   return (
     <div>
       <div>
         <Typography type={'h1'}>My cars</Typography>
         <div className={'flex flex-col gap-5'}>
-          {data?.cars.length === 0 ? (
+          {user?.cars.length === 0 ? (
             <>
               <Typography type={'Ag-16-regular'} className={'m-2'}>
                 Please add your car ...
               </Typography>
             </>
           ) : (
-            data?.cars.map((car: ICar) => <CarCard car={car} />)
+            user?.cars.map((car: ICar) => <CarCard car={car} key={car.id} />)
           )}
           <ButtonAuth onClick={() => setShow(true)}>
             Add car <AiOutlinePlus className='ml-2' size={28} />

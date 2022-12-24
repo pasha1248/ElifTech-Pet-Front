@@ -10,6 +10,7 @@ import SmallVideoItem from '../../../articles/SmallArticleItem'
 const Search: FC = () => {
   const { data, handleSearch, searchTerm, isSuccess } = useSearch()
 
+  console.log(data)
   return (
     <div className={styles.search_top}>
       <label>
@@ -24,8 +25,8 @@ const Search: FC = () => {
       {isSuccess && (
         <div className={styles.result}>
           {data?.length ? (
-            data.map(article => (
-              <SmallVideoItem isSmall item={article} key={article.id} />
+            data.map(item => (
+              <SmallVideoItem isSmall item={item} key={item.id} />
             ))
           ) : (
             <div className='text-white'>Article is not found</div>

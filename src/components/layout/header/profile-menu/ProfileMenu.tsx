@@ -22,11 +22,11 @@ const ProfileMenu = (props: Props) => {
 
   const { data, isLoading } = api.useGetProfileQuery(null)
 
-  const saveUserData = () => {
-    dispatch(saveUserInStore(data))
-    console.log(data)
-  }
-  saveUserData()
+  // const saveUserData = () => {
+  //   dispatch(saveUserInStore(data))
+  //   console.log(data)
+  // }
+  // saveUserData()
   const { isShow, setIsShow, ref } = useOutside(false)
 
   const { logout } = useActions()

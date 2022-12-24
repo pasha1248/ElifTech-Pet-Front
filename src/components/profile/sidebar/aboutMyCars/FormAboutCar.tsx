@@ -57,17 +57,17 @@ const FormAboutCar = ({
   const { getAllBrand, getTypesCar, getYears, getCarModel, getAllYears } =
     useActions()
 
-  React.useEffect(() => {
-    getTypesCar()
-    getAllYears()
-    setTimeout(() => {
-      getAllBrand()
-      setTimeout(() => {
-        getYears()
-      }, 3000)
-    }, 3000)
-    // getAllBrand()
-  }, [])
+  // React.useEffect(() => {
+  //   getTypesCar()
+  //   getAllYears()
+  //   setTimeout(() => {
+  //     getAllBrand()
+  //     setTimeout(() => {
+  //       getYears()
+  //     }, 3000)
+  //   }, 3000)
+  //   // getAllBrand()
+  // }, [])
 
   const onSubmit: SubmitHandler<IFormAboutCar> = async data => {
     setFields(data)

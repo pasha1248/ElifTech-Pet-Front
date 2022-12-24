@@ -20,13 +20,28 @@ const SmallVideoItem: FC<IVideoItem> = ({ isSmall, removeHandler, item }) => {
       })}
     >
       <div className={styles.thumbnail}>
-        {item.photoPath && (
-          <img src={item.photoPath} alt={item.name} width={185} height={103} />
+        {item?.photoPath && (
+          <div>
+            <img
+              src={item.photoPath}
+              alt={item.name}
+              width={185}
+              height={103}
+            />
+            <div className='absolute right-3 -bottom-7'>
+              {item?.user?.avatarPath && <UserAvatar user={item.user} />}
+            </div>
+          </div>
         )}
-
-        {item?.user?.avatarPath && (
-          <div className='absolute right-3 -bottom-7'>
-            <UserAvatar user={item.user} />
+        {item?.avatarPath && (
+          <div>
+            <img
+              src={item?.avatarPath}
+              alt={item.firstName}
+              width={185}
+              height={103}
+            />
+            <UserAvatar user1={item} />
           </div>
         )}
       </div>

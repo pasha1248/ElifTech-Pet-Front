@@ -7,10 +7,6 @@ import { api } from './api-rtk'
 
 export const articleApi = api.injectEndpoints({
   endpoints: builder => ({
-    getArticlesBySearchTerm: builder.query<IArticle[], string>({
-      query: searchTerm => ({ url: `/${'article'}`, params: { searchTerm } }),
-    }),
-
     getArticleById: builder.query<IArticle, number>({
       query: id => `/${'video'}/${id}`,
       providesTags: (result, error, id) => [{ type: 'Article', id }],

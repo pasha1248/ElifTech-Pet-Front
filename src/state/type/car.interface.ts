@@ -12,6 +12,7 @@ export interface IPhotosCar {
 
 export interface ICar {
   name: string
+  id: string
 
   rate?: number
 

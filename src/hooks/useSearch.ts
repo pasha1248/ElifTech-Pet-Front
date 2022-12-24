@@ -3,6 +3,7 @@
 import React, { ChangeEvent } from 'react'
 import { useDebounce } from './useDebounce'
 import { articleApi } from '../state/api-rtk/article.api'
+import { searchApi } from '../state/api-rtk/searchAll.api'
 
 export const useSearch = () => {
   const [searchTerm, setSearchTerm] = React.useState('')
@@ -13,7 +14,7 @@ export const useSearch = () => {
     setSearchTerm(e.target.value)
   }
 
-  const { data, isSuccess } = articleApi.useGetArticlesBySearchTermQuery(
+  const { data, isSuccess } = searchApi.useGetBySearchTermQuery(
     debounceSearch,
     {
       skip: !debounceSearch,
