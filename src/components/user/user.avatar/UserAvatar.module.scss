@@ -1,11 +1,19 @@
 /** @format */
 
 .avatar {
-  @apply rounded-full flex items-center justify-center relative;
+  @apply rounded-full  flex items-center justify-center relative;
 
   border: 2px solid rgba(255, 255, 255, 0.4);
   width: 57px;
   height: 57px;
+  transition: all 0.2s ease;
+  &:hover {
+    opacity: 0.7;
+  }
+
+  img {
+    border-radius: 50%;
+  }
 
   &.white {
     border: 2px solid rgba(255, 255, 255, 0.5);
@@ -16,10 +24,21 @@
   }
 
   > span {
-    @apply relative rounded-full;
+    @apply absolute rounded-full;
   }
 
   .isVerified {
     @apply text-blue-500 text-xs absolute bottom-0 right-0;
+    background-color: black;
+    border-radius: 50%;
   }
+}
+
+.onlineDot {
+  background-color: rgb(101, 211, 160);
+  border-radius: 10px;
+  color: #111827;
+
+  padding: 0 3px 0 3px;
+  width: min-content;
 }

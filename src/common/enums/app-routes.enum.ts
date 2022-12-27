@@ -8,6 +8,7 @@ enum AppRoute {
   FORGOT_PASSWORD = '/forgot-password',
   VERIFY_CODE = '/verify-code',
   MY_PROFILE = '/my-profile/:id',
+  MESSANGER = '/messenger',
 }
 
 export { AppRoute }

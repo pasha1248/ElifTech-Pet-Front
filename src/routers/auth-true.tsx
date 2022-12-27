@@ -6,6 +6,7 @@ import App from '../App'
 import { AppRoute } from '../common/enums/app-routes.enum'
 
 import Home from '../pages/home/Home'
+import MessangerPage from '../pages/messanger/MessangerPage'
 import MyProfilePage from '../pages/my-profile/MyProfilePage'
 import Portal from '../pages/portal/Portal'
 
@@ -16,6 +17,7 @@ const AuthTrueRoutes = () => {
         <Route index element={<Portal />} />
         <Route path={AppRoute.PORTAL} element={<Portal />} />
         <Route path={AppRoute.MY_PROFILE} element={<MyProfilePage />} />
+        <Route path={AppRoute.MESSANGER} element={<MessangerPage />} />
       </Route>
       <Route path='*' element={<Home />} />
     </Routes>

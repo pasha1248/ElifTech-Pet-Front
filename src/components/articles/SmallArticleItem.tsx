@@ -41,7 +41,7 @@ const SmallVideoItem: FC<IVideoItem> = ({ isSmall, removeHandler, item }) => {
               width={185}
               height={103}
             />
-            <UserAvatar user1={item} />
+            <UserAvatar user={item} />
           </div>
         )}
       </div>

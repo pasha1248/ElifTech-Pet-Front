@@ -8,12 +8,14 @@ import ProfileAvatar from './ProfileAvatar'
 import styles from './ProfileAboutMe.module.scss'
 import PersonalInfo from './PersonalInfo'
 import ButtonAuth from '../../../../ui/buttons/ButtonAuth'
+import SubscribeButton from '../../../../ui/buttons/subscribeButton/SubscribeButton'
+import ButtonForMessanger from '../../../../ui/buttons/buttonFormMessenger/ButtonForMessanger'
 
 interface Props {}
 
 const ProfileAboutMe = (props: Props) => {
   const { user } = useAppSelector(state => state.userSlice)
-  const { user: user2 } = useAppSelector(state => state.userSlice)
+  const { user: authUser } = useAppSelector(state => state.authSlice)
 
   console.log(user)
 
@@ -22,7 +24,7 @@ const ProfileAboutMe = (props: Props) => {
   }
   return (
     <div>
-      <div>
+      <div className='w-full'>
         <ProfileAvatar user={user} />
         <div className={styles.name}>
           <h3
@@ -30,7 +32,12 @@ const ProfileAboutMe = (props: Props) => {
           >{`${user?.firstName} ${user?.lastName}`}</h3>
         </div>
         <PersonalInfo user={user} />
-        {user.id !== user2?.id && <ButtonAuth></ButtonAuth>}
+        {user.id !== authUser?.id && (
+          <div className='flex gap-3 justify-between'>
+            <ButtonForMessanger userId={user.id} />
+            <SubscribeButton channelIdFortSubscribe={user.id} />
+          </div>
+        )}
       </div>
     </div>
   )

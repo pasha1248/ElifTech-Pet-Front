@@ -65,6 +65,12 @@ const ProfileMenu = (props: Props) => {
               </Link>
             </li>
             <li>
+              <Link to={'/messenger'}>
+                {' '}
+                <p>Messenger</p>
+              </Link>
+            </li>
+            <li>
               <Link to={'/update'}>
                 {' '}
                 <p>Update Profile</p>
