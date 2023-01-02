@@ -17,10 +17,8 @@ const Home = (props: Props) => {
       {isLoading ? (
         <LoginLoader />
       ) : ( */}
-      <Layout>
-        <Outlet />
-        <RoadLoader />
-      </Layout>
+      <Outlet />
+      <RoadLoader />
     </>
   )
 }

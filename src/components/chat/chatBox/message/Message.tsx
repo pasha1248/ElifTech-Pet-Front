@@ -11,9 +11,9 @@ type Props = {
 const Message = ({ message }: Props) => {
   const timeago = moment(message?.createdAt).fromNow()
   return (
-    <div>
-      <span>{message.text}</span>
-      <span>{timeago}</span>
+    <div className='flex flex-col'>
+      <div>{message.text}</div>
+      <div className='text-xs	'>{timeago}</div>
     </div>
   )
 }

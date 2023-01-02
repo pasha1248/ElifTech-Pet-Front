@@ -8,7 +8,11 @@ import { useActions } from '../../hooks/useActions'
 type Props = {}
 
 const Portal = (props: Props) => {
-  return <RoadLoader />
+  return (
+    <Layout>
+      <div></div>
+    </Layout>
+  )
 }
 
 export default Portal

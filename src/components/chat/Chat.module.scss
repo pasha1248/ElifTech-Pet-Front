@@ -3,7 +3,7 @@
 .Chat {
   position: relative;
   display: grid;
-  grid-template-columns: 22% auto;
+  grid-template-columns: 23% auto;
   gap: 1rem;
 }
 
@@ -51,7 +51,7 @@
   position: relative;
 }
 
-.chatbox-empty-message {
+.checkBoxEmptyMessage {
   display: flex;
   align-self: center;
   justify-content: center;

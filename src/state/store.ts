@@ -8,9 +8,11 @@ import CarSelectSlice from './slice/car-select-slice/car-select.slice'
 import forgotPasswordSlice from './slice/forgot-password/forgot.slice'
 import messengerSlice from './slice/messanger/messenger.slice'
 import userSlice from './slice/user-slice/user.slice'
+import websocketSlice from './slice/websoket/websocket.slice'
 // @ts-ignore
 export const store = configureStore({
   reducer: {
+    WebsocketSlice: websocketSlice,
     MessengerSlice: messengerSlice,
     carSelectSlice: CarSelectSlice,
     authSlice: AuthSlice,

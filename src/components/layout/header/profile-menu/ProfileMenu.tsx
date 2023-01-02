@@ -55,7 +55,7 @@ const ProfileMenu = (props: Props) => {
         <div className={styles['profile-menu']}>
           <ul>
             <li>
-              <Link to={`my-profile/${user?.id}`}>
+              <Link to={`/my-profile/${user?.id}`}>
                 <p>My page</p>
               </Link>
             </li>

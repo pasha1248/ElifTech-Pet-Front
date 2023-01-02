@@ -1,19 +1,33 @@
 /** @format */
 
 import { createSlice } from '@reduxjs/toolkit'
-import { createChat, getAllChats, getOneChat } from './messenger.actions'
+import {
+  createChat,
+  createMessage,
+  deleteMessage,
+  getAllChats,
+  getOneChat,
+} from './messenger.actions'
 import { IChat } from './messenger.interface'
 
 export interface IMessageSlise {
   isLoading: boolean
   chat: IChat[]
   currentChat: IChat
+  messages: any[]
+  lastMessage: {}
+  currentChatId: string
+  onlineUser: []
 }
 
 const initialState: IMessageSlise = {
   isLoading: false,
   chat: [],
   currentChat: {} as IChat,
+  messages: [] as any,
+  lastMessage: {},
+  currentChatId: '',
+  onlineUser: [],
 }
 
 const MessengerSlice = createSlice({
@@ -22,6 +36,12 @@ const MessengerSlice = createSlice({
   reducers: {
     setCurrentChat(state, action) {
       state.currentChat = action.payload
+    },
+    addNewMessage(state, action) {
+      state.messages = [...state.messages, action.payload]
+    },
+    refershOnlineUser(state, action) {
+      state.messages = action.payload
     },
   },
 
@@ -57,13 +77,47 @@ const MessengerSlice = createSlice({
       .addCase(getOneChat.fulfilled, (state, action) => {
         state.isLoading = false
         state.currentChat = action.payload
+        state.currentChatId = action.payload['id']
+        state.messages = action.payload['messages']
+
+        console.log(state.messages)
       })
       .addCase(getOneChat.rejected, (state, action) => {
+        state.isLoading = false
+      })
+    //
+    builder
+      .addCase(createMessage.pending, state => {
+        state.isLoading = true
+      })
+      .addCase(createMessage.fulfilled, (state, action) => {
+        state.isLoading = false
+
+        state.messages = [...state.messages, action.payload['message']]
+        state.lastMessage = action.payload['message']
+      })
+      .addCase(createMessage.rejected, (state, action) => {
+        state.isLoading = false
+      })
+    //
+    builder
+      .addCase(deleteMessage.pending, state => {
+        state.isLoading = true
+      })
+      .addCase(deleteMessage.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.currentChat = action.payload
+        state.messages = action.payload['messages']
+
+        console.log(state.messages)
+      })
+      .addCase(deleteMessage.rejected, (state, action) => {
         state.isLoading = false
       })
   },
 })
 
-export const { setCurrentChat } = MessengerSlice.actions
+export const { setCurrentChat, addNewMessage, refershOnlineUser } =
+  MessengerSlice.actions
 
 export default MessengerSlice.reducer

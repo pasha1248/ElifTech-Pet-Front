@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import { Layout } from '../../components/layout/Layout'
 import MyFriends from '../../components/profile/myCommunity/frends/MyFriends'
 import ProfilePosts from '../../components/profile/posts/ProfilePosts'
 import ProfileSidebar from '../../components/profile/sidebar/ProfileSidebar'
@@ -29,17 +30,19 @@ const MyProfilePage = (props: Props) => {
   console.log(param)
 
   return (
-    <div className={`${styles.container}`}>
-      <div>
-        <ProfileSidebar />
+    <Layout>
+      <div className={`${styles.container}`}>
+        <div>
+          <ProfileSidebar />
+        </div>
+        <div>
+          <ProfilePosts />
+        </div>
+        <div>
+          <MyFriends />
+        </div>
       </div>
-      <div>
-        <ProfilePosts />
-      </div>
-      <div>
-        <MyFriends />
-      </div>
-    </div>
+    </Layout>
   )
 }
 

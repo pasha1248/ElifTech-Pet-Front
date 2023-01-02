@@ -6,7 +6,7 @@ import { IUser } from '../user-slice/user.interface'
 export interface IChat extends IBase {
   messages: IMessage[]
   receiverId: IUser
-  senderId: string
+  senderId: IUser
 }
 
 export interface IMessage extends IBase {
@@ -20,4 +20,7 @@ export interface ICreateNessageDto {
   senderId: string
   chatId: string
   text: string
+  setNewMessage: any
+  receiverId: string
+  socket: any
 }

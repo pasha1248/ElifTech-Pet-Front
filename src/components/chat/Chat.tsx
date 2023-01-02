@@ -22,7 +22,13 @@ const Chat = (props: Props) => {
 
   const { getAllChats, getOneChat } = useActions()
 
-  const { chat, currentChat } = useAppSelector(state => state.MessengerSlice)
+  const { chat, currentChat, messages, lastMessage } = useAppSelector(
+    state => state.MessengerSlice
+  )
+
+  const fetchCallback = React.useCallback((id: string) => {
+    getOneChat(id)
+  }, [])
 
   React.useEffect(() => {
     getAllChats()
@@ -32,6 +38,14 @@ const Chat = (props: Props) => {
 
   if (!user) {
     return null
+  }
+
+  const changeAvatar = (data: IChat, currentUser: string) => {
+    if (data.receiverId.id === currentUser) {
+      return data.senderId
+    } else {
+      return data.receiverId
+    }
   }
 
   return (
@@ -44,11 +58,15 @@ const Chat = (props: Props) => {
                   <div
                     key={chat.id}
                     onClick={() => {
-                      getOneChat(chat.receiverId.id)
+                      fetchCallback(chat.id)
                       console.log(chat.receiverId.id)
                     }}
                   >
-                    <Conversation data={chat} currentUser={user?.id} />
+                    <Conversation
+                      data={chat}
+                      currentUser={user?.id}
+                      changeAvatar={changeAvatar}
+                    />
                   </div>
                 ))
               : ''}
@@ -56,7 +74,13 @@ const Chat = (props: Props) => {
         </div>
       </div>
       <div className={styles.rightSigeChat}>
-        <ChatBox chat={currentChat} currentUserId={user.id} />
+        <ChatBox
+          chat={currentChat}
+          messages={messages}
+          currentUserId={user.id}
+          changeAvatar={changeAvatar}
+          lastMessage={lastMessage}
+        />
       </div>
     </div>
   )

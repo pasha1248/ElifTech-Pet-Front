@@ -8,14 +8,18 @@ import styles from './Layout.module.scss'
 
 interface LayoutProps {
   children: React.ReactNode
+  withFooter?: boolean
 }
 
-export const Layout: React.FC<LayoutProps> = ({ children }) => {
+export const Layout: React.FC<LayoutProps> = ({
+  children,
+  withFooter = true,
+}) => {
   return (
     <section className={styles.container}>
       <Header />
       <div className={`${styles.wrapper} p-2`}>{children}</div>
-      <Footer />
+      {withFooter && <Footer />}
     </section>
   )
 }

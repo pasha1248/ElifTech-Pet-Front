@@ -15,8 +15,8 @@ export const ChatService = {
     return responce.data
   },
 
-  async getOneChat(receiverId: string) {
-    const responce = await api.get(`chat/getOne?receiverId=${receiverId}`)
+  async getOneChat(chatId: string) {
+    const responce = await api.get(`chat/getOne?chatId=${chatId}`)
     return responce.data
   },
 

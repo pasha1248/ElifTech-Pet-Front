@@ -45,9 +45,9 @@ export const getAllChats = createAsyncThunk(
 
 export const getOneChat = createAsyncThunk(
   'chat/getOneChat',
-  async (receiverId: string, { rejectWithValue }) => {
+  async (chatId: string, { rejectWithValue }) => {
     try {
-      const response = await ChatService.getOneChat(receiverId)
+      const response = await ChatService.getOneChat(chatId)
       console.log(response)
       return response
     } catch (e) {
@@ -62,7 +62,14 @@ export const getOneChat = createAsyncThunk(
 export const createMessage = createAsyncThunk(
   'chat/createMessage',
   async (
-    { chatId, senderId, text }: ICreateNessageDto,
+    {
+      chatId,
+      senderId,
+      text,
+      setNewMessage,
+      socket,
+      receiverId,
+    }: ICreateNessageDto,
     { rejectWithValue }
   ) => {
     try {
@@ -72,6 +79,10 @@ export const createMessage = createAsyncThunk(
         text,
       })
       console.log(response)
+      const { message } = response
+      setNewMessage('')
+      socket.emit('sendMessage', { ...message, receiverId })
+
       return response
     } catch (e) {
       if (e instanceof AxiosError) {
@@ -82,8 +93,8 @@ export const createMessage = createAsyncThunk(
   }
 )
 
-export const deleteChat = createAsyncThunk(
-  'auth/getOneChat',
+export const deleteMessage = createAsyncThunk(
+  'auth/deleteMessage',
   async (messageId: string, { rejectWithValue }) => {
     try {
       const response = await ChatService.deleteMessage(messageId)

@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Chat from '../../components/chat/Chat'
+import { Layout } from '../../components/layout/Layout'
 import MyFriends from '../../components/profile/myCommunity/frends/MyFriends'
 import { useActions } from '../../hooks/useActions'
 import { useAppSelector } from '../../hooks/useReduxHooks'
@@ -12,14 +13,16 @@ interface Props {}
 
 const MessangerPage = (props: Props) => {
   return (
-    <div className={styles.container}>
-      <div>
-        <Chat />
+    <Layout withFooter={false}>
+      <div className={styles.container}>
+        <div>
+          <Chat />
+        </div>
+        <div>
+          <MyFriends />
+        </div>
       </div>
-      <div>
-        <MyFriends />
-      </div>
-    </div>
+    </Layout>
   )
 }
 

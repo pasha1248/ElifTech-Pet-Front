@@ -10,9 +10,11 @@ interface Props {}
 
 const SignUp = (props: Props) => {
   return (
-    <div className={styles.container}>
-      <SignUpForm />
-    </div>
+    <Layout>
+      <div className={styles.container}>
+        <SignUpForm />
+      </div>
+    </Layout>
   )
 }
 
