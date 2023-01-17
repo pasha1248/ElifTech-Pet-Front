@@ -38,7 +38,15 @@ const MessengerSlice = createSlice({
       state.currentChat = action.payload
     },
     addNewMessage(state, action) {
-      state.messages = [...state.messages, action.payload]
+      console.log(action.payload)
+
+      if (
+        action.payload?.recieveMessage.chatId === state.currentChatId &&
+        action.payload?.recieveMessage.senderId !==
+          action.payload?.currentUserId
+      ) {
+        state.messages = [...state.messages, action.payload.recieveMessage]
+      }
     },
     refershOnlineUser(state, action) {
       state.messages = action.payload

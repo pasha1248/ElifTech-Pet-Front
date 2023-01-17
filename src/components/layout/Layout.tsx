@@ -17,7 +17,9 @@ export const Layout: React.FC<LayoutProps> = ({
 }) => {
   return (
     <section className={styles.container}>
+      
       <Header />
+
       <div className={`${styles.wrapper} p-2`}>{children}</div>
       {withFooter && <Footer />}
     </section>

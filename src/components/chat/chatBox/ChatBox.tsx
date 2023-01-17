@@ -20,6 +20,7 @@ import {
   addNewMessage,
   refershOnlineUser,
 } from '../../../state/slice/messanger/messenger.slice'
+import { saveOnlineUsers } from '../../../state/slice/websoket/websocket.slice'
 
 type Props = {
   chat: IChat
@@ -49,7 +50,7 @@ const ChatBox = ({
 
   const [sendMessage, setSendMessage] = React.useState({})
 
-  const [recieveMessage, setRecieveMessage] = React.useState<any>(null)
+  const [recieveMessage, setRecieveMessage] = React.useState<any>({})
 
   const dispatch = useAppDispatch()
 
@@ -67,30 +68,19 @@ const ChatBox = ({
     socket.current = io('http://localhost:3001')
     socket.current.emit('newUserAdd', user?.id)
     socket.current.on('getUsers', (users: any) => {
-      setOnlineUsers(users)
+      dispatch(saveOnlineUsers(users))
     })
   }, [])
-
-  console.log(onlineUsers)
-
   React.useEffect(() => {
-    socket.current.emit('createMessage', newMessage)
-  }, [newMessage])
+    async function refersh() {
+      await socket.current.on('recieveMessage', (data: any) => {
+        dispatch(addNewMessage({ recieveMessage: data, currentUserId }))
 
-  React.useEffect(() => {
-    socket.current.on('onMessage', (newMessage: string) => {})
-  }, [])
-
-  React.useEffect(() => {
-    socket.current.on(
-      'recieveMessage',
-      (data: any) => {
-        setRecieveMessage(data)
         console.log(data)
-      },
-      []
-    )
-  })
+      })
+    }
+    refersh()
+  }, [])
 
   React.useEffect(() => {
     if (!recieveMessage) return
@@ -102,6 +92,16 @@ const ChatBox = ({
       dispatch(addNewMessage(recieveMessage))
     }
   }, [recieveMessage])
+
+  console.log(onlineUsers)
+
+  React.useEffect(() => {
+    socket.current.emit('createMessage', newMessage)
+  }, [newMessage])
+
+  React.useEffect(() => {
+    socket.current.on('onMessage', (newMessage: string) => {})
+  }, [])
 
   const hendleSend = (
     e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
@@ -151,10 +151,10 @@ const ChatBox = ({
 
           <div className={styles.chatBody}>
             {messages &&
-              messages.map(message => (
+              messages.map((message, id) => (
                 <div
                   ref={scroll}
-                  key={message.id}
+                  key={message.id + String(id)}
                   className={`${
                     message.senderId === currentUserId
                       ? styles.messageOwn

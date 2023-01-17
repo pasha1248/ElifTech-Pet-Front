@@ -20,9 +20,10 @@ const UserAvatar: FC<{
   // const socket = React.useRef<any>()
   const [isOnline, setIsOnline] = React.useState(false)
 
-  const { onlineUser } = useAppSelector(state => state.MessengerSlice)
+  const { onlineUsers } = useAppSelector(state => state.WebsocketSlice)
 
-  console.log(onlineUser)
+  console.log(onlineUsers)
+  console.log(user.id)
 
   // // React.useEffect(() => {
   // //   socket.current = io('http://localhost:3001')
@@ -54,11 +55,12 @@ const UserAvatar: FC<{
         {!isForConversation ? (
           <div>
             <Typography type='Ag-15-medium'>{`${user?.firstName} ${user?.lastName}`}</Typography>
-            {/* {onlineUser.some(el => el.id === user) ? (
+            {onlineUsers &&
+            onlineUsers.find(el => el.idOnliteUser === user.id) ? (
               <div className={styles.onlineDot}>online</div>
             ) : (
               <div>offline</div>
-            )} */}
+            )}
           </div>
         ) : null}
       </div>

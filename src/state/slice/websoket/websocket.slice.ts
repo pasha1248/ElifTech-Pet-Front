@@ -2,11 +2,20 @@
 
 import { createSlice } from '@reduxjs/toolkit'
 
-export interface IInitialStateWebsocketSlice {
-  onlineUsers: []
+export interface IOnlineUser {
+  createdAt: string
+  id: string
+
+  idOnliteUser: string
+  socketId: string
+  updatedAt: string
 }
 
-const initialState = {
+export interface IInitialStateWebsocketSlice {
+  onlineUsers: IOnlineUser[]
+}
+
+const initialState: IInitialStateWebsocketSlice = {
   onlineUsers: [],
 }
 
